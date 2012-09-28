@@ -1,0 +1,48 @@
+// Place all the styles related to the orders controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// vim:ts=4:sw=4
+
+@import "defaults";
+
+#order_id {
+	text-align: right;
+}
+
+div.field {
+	input#order_id {
+		text-align: right;
+		width: 4em;
+	}
+	input#order_address {
+		width: 16em;
+	}
+	input#order_due_year {
+		text-align: right;
+		width: 4em;
+	}
+	input#order_due_month {
+		text-align: right;
+		width: 2em;
+	}
+	input#order_due_day {
+		text-align: right;
+		width: 2em;
+	}
+	input#order_due_hour {
+		text-align: right;
+		width: 2em;
+	}
+	input#order_due_minute {
+		text-align: right;
+		width: 2em;
+	}
+	input#order_total_price {
+		text-align: right;
+		width: 4em;
+	}
+}
+
+table.orders {
+	@include table-default;
+}

@@ -1,0 +1,37 @@
+<h1>品名一覧<!-- Listing titles --></h1>
+
+<table class="titles" >
+	<thead >
+  <tr>
+    <th>Id</th>
+    <th>タイトル<!-- Title --></th>
+    <th>リリース<!-- Release --></th>
+    <th>発売中<!-- OnSale --></th>
+    <!-- th>Description</th -->
+    <!-- th>Image url</th -->
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+	</thead>
+
+	<tbody >
+<% @titles.each do |title| %>
+  <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+    <td class="id" ><%= title.id %></td>
+    <td class="title" ><%= title.title %></td>
+    <td class="release" ><%= title.release %></td>
+    <td class="on_sale" ><%= title.on_sale ? '○' : '－' %></td>
+    <!-- td class="description" ><%= title.description %></td -->
+    <!-- td class="image_url" ><%= title.image_url %></td -->
+    <td class="link" ><%= link_to '表示', title %></td>
+    <td class="link" ><%= link_to '編集', edit_title_path(title) %></td>
+    <td class="link" ><%= link_to '削除', title, confirm: '本当に削除してよろしいですか？', method: :delete %></td>
+  </tr>
+<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to '品名追加', new_title_path %>

@@ -1,0 +1,50 @@
+<h1>予約一覧<!-- Listing orders --></h1>
+
+<table class="orders" >
+  <tr>
+    <th>Id</th>
+    <th>お名前<!-- Name --></th>
+    <th>ＴＥＬ<!-- Phone --></th>
+    <!-- th>ご住所<!-- Address -!></th -->
+    <!-- <th>Due</th> -->
+    <th>お渡し日</th>
+	<th>合計金額<!-- TotalPrice --></th>
+	<th>代金<!-- Payment --></th>
+	<!-- th>支払い済み<!-- AmountPaid -!></th -->
+	<!-- th>残金<!-- Balance -!></th -->
+	<th>受付<!-- Means --></th>
+	<th>状態<!-- State --></th>
+	<th>更新日時<!-- UpdatedAt --></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @orders.each do |order| %>
+  <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+    <td class="id" ><%= order.id %></td>
+    <td class="name" ><%= order.name %></td>
+    <td class="phone" ><%= order.phone %></td>
+    <!-- td class="address" ><%= order.address %></td -->
+    <!-- td class="due" ><%= order.due %></td -->
+    <td class="due" >
+		<%= order.due_year -%>-<%= sprintf('%02i' % order.due_month ) if order.due_month -%>-<%= sprintf('%02i' % order.due_day ) if order.due_day -%>
+    	<%= sprintf('%02i' % order.due_hour ) if order.due_hour -%>:<%= sprintf('%02i' % order.due_minute ) -%>
+	</td>
+    <td class="price" ><%= number_to_currency(order.total_price, :precision => 0, :unit => '' ) -%></td>
+    <td class="payment" ><%= order.payment %></td>
+    <!-- td class="amount_paid" ><%= order.amount_paid %></td -->
+    <!-- td class="balance" ><%= order.balance %></td -->
+    <td class="means" ><%= order.means %></td>
+    <td class="state" ><%= order.state %></td>
+    <td class="ordered_at" ><%= i_to_datetime_s(order.ordered_at, :ja_date) %></td>
+    <td class="link" ><%= link_to '表示', order %></td>
+    <td class="link" ><%= link_to '編集', edit_order_path(order) %></td>
+    <td class="link" ><%= link_to '削除', order, confirm: '本当に削除してよろしいですか？', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<!-- %= link_to 'New Order', new_order_path % -->

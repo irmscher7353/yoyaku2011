@@ -1,0 +1,55 @@
+<!-- vim:ts=4:sw=4
+-->
+<table class="summary" >
+	<caption><%= @caption -%> 残り予約一覧（時刻順）</caption>
+	<thead >
+		<tr class="summary_header" >
+			<th >名前</th>
+			<th >予約時刻</th>
+			<th >商品名</th>
+			<th >サイズ</th>
+			<th >数量</th>
+		</tr>
+	</thead>
+	<tbody >
+	<% for li in @line_items %>
+		<tr class="<%= cycle('list-line-odd', 'list-line-even' ) -%>" >
+			<td ><%= li.order.name -%></td>
+			<td class="symbol" ><%= sprintf('%02i:%02i', li.order.due_hour, li.order.due_minute ) -%></td>
+			<td class="title" ><%= li.product.title.title -%></td>
+			<td class="size" ><%= li.product.size -%></td>
+			<td class="count" ><%= li.quantity -%></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+<table class="summary" >
+	<caption><%= @caption -%> 時間別集計</caption>
+	<thead >
+		<tr class="summary_header" >
+			<th >種類</th>
+			<th >サイズ</th>
+		<% for tkey in @summary.keys.sort %>
+			<th ><%= tkey -%></th>
+		<% end %>
+			<th >合計</th>
+		</tr>
+	</thead>
+	<tbody >
+	<% for product in Product.find_products_for_sale %>
+		<tr class="<%= cycle('list-line-odd', 'list-line-even' ) -%>" >
+			<td class="title" ><%= product.title.title -%></td>
+			<td class="size" ><%= product.size -%></td>
+		<% total = 0 %>
+		<% for tkey in @summary.keys.sort %>
+			<% count = @summary[tkey][product.id] %>
+			<td class="subcount" ><%= 0 < count ? count : '' -%></td>
+			<% total += count %>
+		<% end %>
+			<td class="count" ><%= total -%></td>
+		</tr>
+	<% end %>
+	</tbody>
+	<tfoot >
+	</tfoot>
+</table>

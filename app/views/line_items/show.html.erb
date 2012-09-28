@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Order:</b>
+  <%= @line_item.order_id %>
+</p>
+
+<p>
+  <b>Product:</b>
+  <%= @line_item.product_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @line_item.quantity %>
+</p>
+
+<p>
+  <b>Total price:</b>
+  <%= @line_item.total_price %>
+</p>
+
+<p>
+  <b>Ordered at:</b>
+  <%= i_to_datetime_s(@line_item.ordered_at, :ja_date) %>
+  (<%= @line_item.ordered_at %>)
+</p>
+
+
+<%= link_to '編集', edit_line_item_path(@line_item) %> |
+<%= link_to '一覧に戻る', line_items_path %>

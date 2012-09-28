@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @order.name %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @order.phone %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @order.address %>
+</p>
+
+<p>
+  <b>Due:</b>
+  <%= @order.due_year -%>年 <%= @order.due_month -%>月 <%= @order.due_day -%>日
+  <%= @order.due_hour -%>時 <%= @order.due_minute -%>分
+</p>
+
+<p>
+  <b>Total price:</b>
+  <%= @order.total_price %>
+</p>
+
+<p>
+  <b>Payment:</b>
+  <%= @order.payment %>
+</p>
+
+<p>
+  <b>Amount paid:</b>
+  <%= @order.amount_paid %>
+</p>
+
+<p>
+  <b>Balance:</b>
+  <%= @order.balance %>
+</p>
+
+<p>
+  <b>Means:</b>
+  <%= @order.means %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @order.state %>
+</p>
+
+
+<%= link_to '編集', edit_order_path(@order) %> |
+<%= link_to '一覧に戻る', orders_path %>

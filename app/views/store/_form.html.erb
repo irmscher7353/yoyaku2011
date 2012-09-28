@@ -1,0 +1,368 @@
+<%= form_for :order, :url => { :action => :save_order } do |f| %>
+<table class="order" >
+	<caption style="height: 0em;" >ご予約伝票</caption>
+	<tr >
+		<td ><%= f.label :id, "予約番号" -%></td>
+		<td >
+			<%= number_field_tag :order_id_field, @order.id, :disabled => true, -%>
+			<%= f.hidden_field :id -%>
+		</td>
+	</tr>
+	<tr >
+		<td ><%= f.label :name, "お名前" -%></td>
+		<td ><%= f.text_field :name, :class => "text_field",
+			:size => 20, :autocomplete => "off", :disabled => @order_disabled,
+			:onFocus => "show_selector('kanapad');",
+			:onChange => "update_button_state();" -%> 様</td>
+		<td align="right" ><%= f.label :phone, "ＴＥＬ" -%></td>
+		<td align="right" ><%= f.text_field :phone, :class => "phone_field",
+			:size => 20, :autocomplete => "off", :disabled => @order_disabled,
+			:onFocus => "show_selector('numbers');",
+			:onChange => "update_button_state();" -%>
+		</td>
+	</tr>
+	<tr >
+		<td ><%= f.label :address, "ご住所" -%></td>
+		<td colspan="3" >
+			<%= f.text_field :address, :class => "text_field",
+				:size => 51, :autocomplete => "off", :disabled => @order_disabled,
+				:onFocus => "show_selector('address_selector');",
+				:onChange => "update_button_state();" -%>
+		</td>
+	</tr>
+	<tr >
+		<td ><label >お渡し日</label></td>
+		<td colspan="2" >
+			<%= hidden_field_tag 'due_time_min', @due_time_min -%>
+			<%= hidden_field_tag 'due_time_max', @due_time_max -%>
+			<span style="display: none;" >
+			<%= f.number_field :due_year, :class => "number_field",
+				:autocomplete => "off", :disabled => @order_disabled,
+				:onFocus => "show_selector('due_selector');",
+				:onChange => "due_date_modified();" -%>
+			年
+			</span>
+			<%= f.number_field :due_month, :class => "number_field",
+				:autocomplete => "off", :disabled => @order_disabled,
+				:onFocus => "show_selector('due_selector');",
+				:onChange => "due_date_modified();" -%>
+			月
+			<%= f.number_field :due_day, :class => "number_field",
+				:autocomplete => "off", :disabled => @order_disabled,
+				:onFocus => "show_selector('due_selector');",
+				:onChange => "due_date_modified();" -%>
+			日
+			（<span id="weekday" class="text_field" >－</span>）
+			<%= f.number_field :due_hour, :class => "number_field",
+				:autocomplete => "off", :disabled => @order_disabled,
+				:onFocus => "show_selector('due_selector');",
+				:onChange => "due_time_modified();" -%>
+			：
+			<%= f.text_field :due_minute, :class => "number_field",
+				:autocomplete => "off", :disabled => @order_disabled,
+				:onFocus => "show_selector('due_selector');",
+				:value => "00", :onChange => "due_time_modified();" -%>
+
+		</td>
+		<td class="ordered_at" >
+		<% if @order.ordered_at %>
+			受付日時：
+			<%= i_to_datetime_s(@order.ordered_at, :ja_date) -%>
+		<% end %>
+		</td>
+	</tr>
+</table>
+
+<table class="order_line_items" >
+	<tr >
+		<th >商品名</th>
+		<th >サイズ</th>
+		<th >数量</th>
+		<th >限定</th>
+		<th >金額</th>
+		<th ></th>
+		<th >備考</th>
+	</tr>
+<% n = @cart.items.length %>
+	<tr class="note" >
+		<td class="blank" ></td>
+		<td class="blank" ></td>
+		<td class="blank" ></td>
+		<td class="blank" ></td>
+		<td class="blank" ></td>
+		<td class="blank" ></td>
+		<td class="note" rowspan="<%= n+2 -%>" >
+			<%= f.text_area :note, :size => sprintf('%ix%i', 25, n+1 ),
+				:onFocus => "show_selector('address_selector');" %>
+		</td>
+	</tr>
+<% i = 0 %>
+<% for item in @cart.items %>
+	<% i += 1 %>
+	<tr id="line_<%= i -%>" name="line" >
+		<td class="field" >
+			<%= text_field_tag sprintf("title[%d]", i),
+				item.product == nil ? "" : item.product.title.title,
+				:class => "title", :disabled => @order_disabled,
+				:autocomplete => "off",
+				:onFocus => sprintf("set_current_line(%d)", i) -%>
+		</td>
+		<td class="field" >
+			<%= text_field_tag sprintf("size[%d]", i),
+				item.product == nil ? "" : item.product.size,
+				:class => "size", :disabled => @order_disabled,
+				:autocomplete => "off",
+				:onFocus => sprintf("set_current_line(%d)", i) -%>
+		</td>
+		<%= hidden_field_tag sprintf("productid[%d]", i),
+			item.product == nil ? "" : item.product.id %>
+		<%= hidden_field_tag sprintf("price[%d]", i),
+			item.product == nil ? "" : item.product.price %>
+		<td class="field" >
+			<%= number_field_tag sprintf("quantity[%d]", i),
+				item.quantity == 0 ? "" : item.quantity,
+				:disabled => @order_disabled,
+				:class => "quantity", :autocomplete => "off",
+				:onFocus => sprintf("set_current_line(%d)", i) ,
+				:onChange => sprintf("calc_subtotal(%d)", i) -%>
+		</td>
+		<%= hidden_field_tag sprintf("remain[%d]", i),
+			item.product == nil ? "" : @remain[item.product.id] %>
+		<td class="remain" ><span id="remain_text_<%= i -%>">&nbsp;</span></td>
+		<%= hidden_field_tag sprintf("subtotal[%d]", i) %>
+		<td class="price" name="subtotal" >
+			<span class="subtotal" id="subtotal_text_<%= i -%>" ></span>
+		</td>
+	</tr>
+<% end %>
+	<tr >
+		<td class="titlepagercell" >
+			<div id="titlepage_selector" style="display: none;" >
+				<%= button_tag "▲", :class => "titlepagerbutton",
+					:id => "prev_titlepage",
+					:onClick => "move_titlepage(-1);", :disabled => true,
+					:type => "button" %>
+				<%= button_tag "▼", :class => "titlepagerbutton",
+					:id => "next_titlepage",
+					:onClick => "move_titlepage(+1);",
+					:type => "button" %>
+			</div>
+		</td>
+		<td ></td>
+		<td ></td>
+		<td class="total" >合計</td>
+		<%= hidden_field_tag "total" %>
+		<td class="total" ><span class="total_price" id="total_text" >0</span></td>
+		<td class="total" >円</td>
+	</tr>
+	<tr id="payment" valign="top" >
+		<td id="blank_selector" colspan="3" rowspan="4" >
+		<% if @order.state == "キャンセル" %>
+			この予約はキャンセルされています．
+		<% end %>
+		<% if @order.state == "引渡し済み" %>
+			この予約は引渡し済みです．
+		<% end %>
+		</td>
+		<td id="title_selector" rowspan="4" style="display: none;" >
+		<% ip = 1 %>
+		<% it = 0 %>
+			<div class="titlepage" id="titlepage_<%= ip -%>" >
+			<% for title in @titles %>
+				<% if 0 < it && (it % 6) == 0 %>
+			</div>
+			<div class="titlepage" id="titlepage_<%= ip += 1 -%>" style="display: none;" >
+				<% end %>
+				<% products = title.products.where(["on_sale = ?", true ]) %>
+				<% disabled = products.size == 1 && @remain[products[0].id] == 0 %>
+				<% style = disabled ? "" : "display: none;" %>
+				<%= button_tag :class => "titlebutton",
+					:type => "button", :disabled => disabled,
+					:onClick => sprintf("set_title('%s',%d);",
+					title.title, title.id)  do %>
+					<%= title.title -%><br /><span class="soldout" style="<%= style -%>" >SOLDOUT</span>
+				<% end %><br/>
+				<% it += 1 %>
+			<% end %>
+			<% num_titlepages = ip %>
+			</div>
+		</td>
+		<td id="size_selector" align="center" rowspan="4" style="display: none;" >
+		<% for title in @titles %>
+			<div id="products_of_title_<%= title.id -%>" name="size"
+				style="display:none;" >
+			<% products = title.products.where(["on_sale = ?", true ]) %>
+			<% for product in products %>
+				<% disabled = @remain[product.id] == 0 %>
+				<% style = disabled ? "" : "display: none;" %>
+				<%= button_tag :class => "sizebutton",
+					:type => "button", :disabled => disabled,
+					:onClick => sprintf("set_size('%s',%d,%d,%d);",
+						product.size, product.id, product.price, @remain[product.id] ),
+					:style => sprintf("visibility: %s;",
+						products.length <= 1 ? "hidden" : "visible") do %>
+					<%= product.size -%><br/><span class="soldout" style="<%= style -%>" >SOLDOUT</span>
+				<% end %><br/>
+			<% end %>
+			</div>
+		<% end %>
+		</td>
+		<td id="quantity_selector" align="center" rowspan="4" style="display: none;" >
+		<% for i in 1 .. 4 %>
+			<%= button_tag sprintf("%d", i), :class => "quantitybutton",
+				:onClick => sprintf("set_quantity(%d)", i),
+				:type => "button" -%><br/>
+		<% end %>
+			<%= button_tag sprintf("%s", "＋"), :class => "quantitybutton",
+				:onClick => "incr_quantity(+1)", :type => "button" -%><br/>
+			<%= button_tag sprintf("%s", "－"), :class => "quantitybutton",
+				:onClick => "incr_quantity(-1)", :type => "button" -%><br/>
+		</td>
+		<td id="numbers" colspan="3" rowspan="4" align="right" style="display: none;" >
+			<%= button_tag "090-", :class => "ktaibutton",
+				:onClick => "add_char('phone', this);",
+				:type => "button" -%><br/>
+<% for i in 0 .. @numbers.length-1 %>
+	<% for j in 0 .. @numbers[i].length-1 %>
+			<%= button_tag @numbers[i][j], :class => "kanabutton",
+				:onClick => "add_char('phone', this);",
+				:type => "button" -%>
+	<% end %>
+			<br/>
+<% end %>
+		</td>
+		<td id="address_selector" colspan="3" rowspan="4" style="display: none;" >
+			住所と備考はキーボードから入力して下さい．
+		</td>
+		<td id="due_selector" colspan="3" rowspan="4" align="center" style="padding-top: 0px; display: none;" >
+			<table >
+				<tr >
+					<th >月</th>
+					<th >日</th>
+					<th >時</th>
+					<th >分</th>
+				</tr>
+				<tr valign="top" >
+					<td class="due_column" >
+					<% for i in 12 .. 12 %>
+						<%= button_tag i, :class => "kanabutton",
+							:onClick => sprintf("set_due('month', %d);", i),
+							:type => "button" -%><br/>
+					<% end %>
+					</td>
+					<td class="due_column" >
+					<% for i in 23 .. 25 %>
+						<%= button_tag i, :class => "kanabutton",
+							:onClick => sprintf("set_due('day', %d);", i),
+							:type => "button" -%><br/>
+					<% end %>
+					</td>
+					<td class="due_column" >
+					<% icol = 0 %>
+					<% ncol = 2 %>
+					<% for i in @due_hours %>
+						<% icol += 1 %>
+						<%= button_tag i, :class => "hourbutton",
+							:onClick => sprintf("set_due('hour', %d);", i),
+							:type => "button" -%><% if (icol % ncol) == 0 %><br/><% end %>
+					<% end %>
+					</td>
+					<td class="due_column" >
+					<% for i in ["00", "30"] %>
+						<%= button_tag i, :class => "kanabutton",
+							:onClick => sprintf("set_due('minute', '%s');", i),
+							:type => "button" -%><br/>
+					<% end %>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td align="right" >
+			<label class="total" >代金 </label><br/>
+		</td>
+		<td class="payment" align="center" colspan="2" >
+			<%= radio_button_tag "payment", "未", @order.payment == "未",
+				:id => "payment_none", :disabled => @order_disabled,
+				:onChange => "update_button_state();" -%>未 ・
+			<%= radio_button_tag "payment", "済", @order.payment == "済",
+				:id => "payment_done", :disabled => @order_disabled,
+				:onChange => "update_button_state();" -%>済
+		</td>
+		<td class="note" rowspan="3" >
+<%= render 'form_note_phrases' %>
+		</td>
+	</tr>
+	<tr id="means" valign="top" >
+		<td align="right" >
+			<label class="total" >受付</label>
+		</td>
+		<td class="means" align="center" colspan="2" >
+			<%= radio_button_tag "means", "電話", @order.means == "電話",
+				:id => "means_phone", :disabled => @order_disabled,
+				:onChange => "update_button_state();" -%>電話 ・
+			<%= radio_button_tag "means", "来店", @order.means == "来店",
+				:id => "means_visit", :disabled => @order_disabled,
+				:onChange => "update_button_state();" -%>来店
+		</td>
+	</tr>
+	<tr id="checkout" valign="top" >
+		<td >
+		</td>
+		<td class="checkout" align="center" colspan="2" >
+			<%= submit_tag "予約登録", :id => "register",
+				:class => "submitbutton" %><br/>
+			<%= button_tag "お引渡し", :id => "deliver",
+				:formaction => "/store/deliver_order",
+				:class => "submitbutton" %><br/>
+			<%= button_tag "予約取消", :id => "cancelbutton",
+				:confirm => "この予約を取り消していいですか？",
+				:formaction => "/store/cancel_order",
+				:class => "submitbutton" %>
+			<%= button_tag "予約復元", :id => "revertbutton",
+				:formaction => "/store/cancel_order",
+				:class => "submitbutton" %>
+		</td>
+	</tr>
+	<tr >
+		<td ></td>
+		<td >
+			<div id="message" >
+			</div>
+		</td>
+	</tr>
+</table>
+<table >
+	<tr id="kanapad" valign="top" style="display: none;" >
+		<td >
+<% n = @kana[0].length %>
+<% for i in 0 .. n-1 %>
+	<% for j in 0 .. @kana.length-1 %>
+		<% case @kana[j][i] %>
+		<% when "　" %>
+			<%= button_tag @kana[j][i], :class => "nonebutton",
+				:type => "button" -%>
+		<% else %>
+			<%= button_tag @kana[j][i], :class => "kanabutton",
+				:onClick => "add_char('name', this);",
+				:type => "button" -%>
+		<% end %>
+	<% end %>
+			<br/>
+<% end %>
+			<%= button_tag "スペース", :class => "spacebar",
+				:onClick => "add_char('name', this);",
+				:type => "button" -%>
+			<%= button_tag "←", :class => "backbutton",
+				:onClick => "add_char('name', this);",
+				:type => "button" -%>
+		</td>
+	</tr>
+</table>
+<script language="JavaScript" >
+	update_weekday();
+	num_lines = <%= @cart.items.length -%>;
+	num_titlepages = <%= num_titlepages -%>;
+	calc_subtotals();
+	set_titlepage(1);
+</script>
+<% end %>

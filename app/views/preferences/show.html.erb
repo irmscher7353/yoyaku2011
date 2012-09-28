@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>名前<!-- Name -->:</b>
+  <%= @preference.name %>
+</p>
+
+<p>
+  <b>値<!-- Value -->:</b>
+  <%= @preference.value %>
+</p>
+
+
+<%= link_to '編集', edit_preference_path(@preference) %> |
+<%= link_to '一覧に戻る', preferences_path %>

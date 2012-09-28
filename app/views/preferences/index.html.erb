@@ -1,0 +1,25 @@
+<h1>設定一覧<!-- Listing preferences --></h1>
+
+<table class="preferences" >
+  <tr>
+    <th>名前<!-- Name --></th>
+    <th>値<!-- Value --></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @preferences.each do |preference| %>
+  <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+    <td><%= preference.name %></td>
+    <td><%= preference.value %></td>
+    <td><%= link_to '表示', preference %></td>
+    <td><%= link_to '編集', edit_preference_path(preference) %></td>
+    <td><%= link_to '削除', preference, confirm: '本当に削除してよろしいですか？', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '設定追加', new_preference_path %>

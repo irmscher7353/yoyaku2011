@@ -1,0 +1,60 @@
+<!- vim:ts=2:sw=2
+->
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+  	<%= f.label :id %><br/>
+	<%= number_field_tag :product_id_field, @product.id, :disabled => true %>
+	<%= f.hidden_field :id %>
+  </div>
+  <div class="field">
+    <%= f.label :title, '品名' %><br />
+	<%= select_tag :title, @options_tag.html_safe,
+		:onChange => 'Products.titleSelected(this);',
+		:include_blank => @product.id == nil %>
+    <%= number_field_tag :product_title_id_field, @product.title_id, :disabled => true %>
+    <%= f.hidden_field :title_id %>
+  </div>
+  <div class="field">
+    <%= f.label :size, 'サイズ' %><br />
+    <%= f.text_field :size %>
+  </div>
+  <div class="field">
+    <%= f.label :release, 'リリース' %><br />
+    <%= f.text_field :release %><br />
+	品名・サイズが同じで価格が異なる商品を区別するための「発売時期」を指定します．
+  </div>
+  <div class="field">
+    <%= f.label :on_sale, '発売中' %><br />
+    <%= f.check_box :on_sale %>
+  </div>
+  <div class="field">
+    <%= f.label :price, '価格' %><br />
+    <%= f.number_field :price %>
+  </div>
+  <div class="field">
+		<%= hidden_field_tag :old_limitation, @product.limitation -%>
+    <%= f.label :limitation, '限定数' %><br />
+    <%= f.number_field :limitation,
+			onChange: 'Products.limitationModified();' %><br />
+	「限定数なし」の場合は -1 を指定します．
+  </div>
+  <div class="field">
+    <%= f.label :remain, '残り' %><br />
+    <%= f.number_field :remain, readonly: true %><br />
+  </div>
+  <div class="actions">
+    <%= f.submit id: 'commit' %>
+  </div>
+<% end %>

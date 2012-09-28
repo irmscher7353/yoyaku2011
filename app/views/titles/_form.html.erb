@@ -1,0 +1,41 @@
+<%= form_for(@title) do |f| %>
+  <% if @title.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@title.errors.count, "error") %> prohibited this title from being saved:</h2>
+
+      <ul>
+      <% @title.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :id %><br />
+    <%= f.text_field :id, :disabled => true %>
+  </div>
+  <div class="field">
+    <%= f.label :title, '品名' %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :release, 'リリース' %><br />
+    <%= f.text_field :release %>
+  </div>
+  <div class="field">
+    <%= f.label :on_sale, '発売中' %><br />
+    <%= f.check_box :on_sale %>
+  </div>
+  <div class="field">
+    <%= f.label :description, '説明' %><br />
+    <%= f.text_area :description, :rows => 5 %>
+  </div>
+  <div class="field">
+    <%= f.label :image_url, '画像の URL' %><br />
+    <%= f.text_field :image_url %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,6 @@
+<% for phrase in @note_phrases %>
+	<% if phrase != "" %>
+		<%= button_tag phrase, :class => 'phrasebutton', :type => :button,
+			:onClick => sprintf("add_note('%s');", phrase) -%><br/>
+	<% end %>
+<% end %>

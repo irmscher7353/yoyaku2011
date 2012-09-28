@@ -1,0 +1,90 @@
+// vim:ai:ts=4:sw=4
+@mixin table-default {
+	a {
+		color: forestgreen;
+		text-decoration: none;
+	}
+	tbody { /* useless in Firefox 7.0.1 */
+		height: 100px;
+		overflow: scroll;
+	}
+	td {
+		padding: 0.0em 0.5em 0.0em 0.5em;
+		white-space: nowrap;
+	}
+	td.address {
+	}
+	td.due {
+		text-align: center;
+	}
+	td.id, td.quantity {
+		text-align: right;
+		width: 4em;
+	}
+	td.datetime {
+		text-align: center;
+	}
+	td.hour {
+		text-align: right;
+	}
+	td.image_url {
+	}
+	td.limitation {
+		text-align: right;
+	}
+	td.means {
+		text-align: center;
+	}
+	td.minute {
+		text-align: right;
+	}
+	td.month {
+		text-align: right;
+	}
+	td.name {
+		min-width: 10em;
+	}
+	td.on_sale {
+		font-family: 'ＭＳ ゴシック';
+		text-align: center;
+	}
+	td.phone {
+		min-width: 8em;
+	}
+	td.payment {
+		text-align: center;
+	}
+	td.price {
+		text-align: right;
+	}
+	td.release {
+		text-align: center;
+	}
+	td.remain {
+		text-align: right;
+	}
+	td.size {
+		text-align: center;
+	}
+	td.state {
+		width: 4em;
+	}
+	td.title {
+		white-space: nowrap;
+	}
+	td.total_price {
+		text-align: right;
+	}
+	td.year {
+		text-align: right;
+	}
+	tr th {
+		background: tan;
+		border: {
+			bottom: 1px solid black;
+			top: 1px solid black;
+		}
+		padding: 0.1em 0.2em 0.1em 0.2em;
+	}
+}
+

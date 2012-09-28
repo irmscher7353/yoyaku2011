@@ -1,0 +1,70 @@
+<%= form_for(@order) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :id %><br />
+    <%= f.number_field :id, :disabled => true %>
+  </div>
+  <div class="field">
+    <%= f.label :name, 'お名前' %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :phone, 'ＴＥＬ' %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :address, 'ご住所' %><br />
+    <%= f.text_field :address %>
+  </div>
+  <!-- div class="field">
+    <%= f.label :due %><br />
+    <%= f.datetime_select :due, :use_month_numbers => true, :date_separator => '/', :minute_step => 30, :start_year => Time.now.year, :end_year => Time.now.year, :discard_year => false %>
+  </div -->
+  <div class="field">
+  	<%= f.label :due, 'お渡し日' %><br />
+	<%= f.number_field :due_year -%> 年
+	<%= f.number_field :due_month -%> 月
+	<%= f.number_field :due_day -%> 日
+	&nbsp;
+	<%= f.number_field :due_hour -%>：
+	<%= f.number_field :due_minute -%>
+  </div>
+  <div class="field">
+    <%= f.label :total_price, '合計金額' %><br />
+	<%= f.number_field :total_price %>
+  </div>
+  <div class="field">
+    <%= f.label :payment, '代金' %><br />
+	<%= f.text_field :payment %>
+  </div>
+  <!-- div class="field">
+    <%= f.label :amount_paid %><br />
+	<%= f.number_field :amount_paid %>
+  </div -->
+  <!-- div class="field">
+    <%= f.label :balance %><br />
+	<%= f.number_field :balance %>
+  </div -->
+  <div class="field">
+    <%= f.label :means, '受付' %><br />
+	<%= f.text_field :means %>
+  </div>
+  <div class="field">
+    <%= f.label :state, '状態' %><br />
+	<%= f.text_field :state %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

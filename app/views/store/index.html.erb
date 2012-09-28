@@ -1,0 +1,78 @@
+<table class="index" >
+	<caption ><%= @caption -%></caption>
+	<thead >
+		<tr >
+			<th >予約番号</th>
+			<th >お名前</th>
+			<th >ＴＥＬ</th>
+			<th >お渡し日時</th>
+			<th >受付</th>
+			<th >状態</th>
+			<th ></th>
+			<th ></th>
+		</tr>
+	</thead>
+	<tbody >
+	<% for order in @recent_orders %>
+		<tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+			<td class="id" ><%= order.id -%></td>
+			<td class="name" ><%= order.name -%></td>
+			<td class="phone" ><%= order.phone -%></td>
+			<td class="due" ><%= order.due.to_s(:ja_date) -%></td>
+			<td class="means" ><%= order.means -%></td>
+			<td class="state" ><%= order.state -%></td>
+			<td class="edit" >
+				<%= link_to '表示・印刷', sprintf('/store/show/%d', order.id) -%>
+			</td>
+			<td class="edit" >
+				<%= link_to '変更', sprintf('/store/edit/%d', order.id) -%>
+			</td>
+		</tr>
+	<% end %>
+	<%= form_tag '/store/index', :method => 'get' do %>
+		<tr >
+			<td ><%= number_field_tag :id, params[:id], :class => 'number_field', :size => 8,
+				:autocomplete => "off" -%></td>
+			<td ><%= text_field_tag :name, params[:name], :class => 'text_field', :size => 20,
+				:autocomplete => "off" -%></td>
+			<td ><%= text_field_tag :phone, params[:phone], :class => 'text_field', :size => 20,
+				:autocomplete => "off" -%></td>
+			<td class="due" ><%= select_tag :due_month,
+				options_from_collection_for_select(Order.group(:due_month).all,
+				:due_month, :due_month, params[:due_month] ),
+				:include_blank => true, :class => 'number_field' -%>
+				/<%= select_tag :due_day,
+				options_from_collection_for_select(Order.group(:due_day).all,
+				:due_day, :due_day, params[:due_day] ), :include_blank => true,
+				:class => 'number_field' -%></td>
+			<td ><%= select_tag :means, options_from_collection_for_select(
+				Order.group(:means).all, :means, :means, params[:means] || '電話' ),
+				:include_blank => true -%></td>
+			<td ><%= select_tag :state, options_from_collection_for_select(
+				Order.group(:state).all, :state, :state, params[:state] ),
+				:inculde_blank => true -%></td>
+			<td class="edit" ><%= submit_tag '検索' -%></td>
+		</tr>
+	<% end %>
+	<% for order in @orders_found %>
+		<tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+			<td class="id" ><%= order.id -%></td>
+			<td class="name" ><%= order.name -%></td>
+			<td class="phone" ><%= order.phone -%></td>
+			<td class="due" ><%= order.due.to_s(:ja_date) -%></td>
+			<td class="means" ><%= order.means -%></td>
+			<td class="state" ><%= order.state -%></td>
+			<td class="edit" >
+				<%= link_to '表示・印刷', sprintf('/store/show/%d', order.id) -%>
+			</td>
+			<td class="edit" >
+				<%= link_to '変更', sprintf('/store/edit/%d', order.id) -%>
+			</td>
+		</tr>
+	<% end %>
+		<tr >
+			<td colspan="7" ><%= @message -%></td>
+		</tr>
+	</tbody>
+</table>
+

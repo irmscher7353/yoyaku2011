@@ -1,0 +1,39 @@
+<h1>詳細一覧<!-- Listing line_items --></h1>
+
+<table class="line_items" >
+  <tr>
+    <th>Id</th>
+    <th>予約番号<!-- Order --></th>
+    <th >状態</th>
+    <th >予約更新日時</th>
+    <th >お渡し日時</th>
+    <th>商品番号<!-- Product --></th>
+    <th>数量<!-- Quantity --></th>
+    <th>金額（小計）<!-- TotalPrice --></th>
+    <th>詳細更新日時<!-- OrderedAt --></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @line_items.each do |line_item| %>
+  <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+  	<td class="id" ><%= line_item.id %></td>
+    <td class="id" ><%= line_item.order_id %></td>
+	<td class="state" ><%= line_item.order.state -%></td>
+	<td ><%= i_to_datetime_s(line_item.order.ordered_at, :ja_date) -%></td>
+	<td ><%= line_item.order.due.to_formatted_s(:ja_date) -%></td>
+    <td class="id" ><%= line_item.product_id %></td>
+    <td class="quantity" ><%= line_item.quantity %></td>
+    <td class="price" ><%= number_to_currency(line_item.total_price, :precision => 0, :unit => '' ) %></td>
+    <td class="datetime" ><%= i_to_datetime_s(line_item.ordered_at, :ja_date) %></td>
+    <td class="link" ><%= link_to '表示', line_item %></td>
+    <td class="link" ><%= link_to '編集', edit_line_item_path(line_item) %></td>
+    <td class="link" ><%= link_to '削除', line_item, confirm: '本当に削除してよろしいですか？', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<!-- %= link_to 'New Line item', new_line_item_path % -->

@@ -1,0 +1,87 @@
+<h2 >予約不整合チェックリスト</h2>
+<table class="check" style="margin-top: 1em;" >
+	<caption >合計金額不一致</caption>
+	<thead >
+		<tr >
+			<th class="id" >予約番号</th>
+			<th class="name" >お名前</th>
+			<th class="due" >お渡し日時</th>
+		</tr>
+	</thead>
+	<tbody >
+	<% for order in @invalid_orders %>
+		<tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+			<td class="id" ><%= order.id -%></td>
+			<td class="name" ><%= order.name -%></td>
+			<td class="due" ><%= order.due.to_s(:ja_date) -%></td>
+		</tr>
+	<% end %>
+	</tbody>
+	<tfoot >
+		<tr >
+			<td align="center" colspan="3" >
+			<% if @invalid_orders.length == 0 %>
+			合計金額が一致しない予約は見つかりませんでした．
+			<% end %>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+
+<table class="check" style="margin-top: 1em;" >
+	<caption >商品重複</caption>
+	<thead >
+		<tr >
+			<th class="id" >予約番号</th>
+			<th class="name" >お名前</th>
+			<th class="due" >お渡し日時</th>
+		</tr>
+	</thead>
+	<tbody >
+	<% for order in @suspicious_orders %>
+		<tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+			<td class="id" ><%= order.id -%></td>
+			<td class="name" ><%= order.name -%></td>
+			<td class="due" ><%= order.due.to_s(:ja_date) -%></td>
+		</tr>
+	<% end %>
+	</tbody>
+	<tfoot >
+		<tr >
+			<td align="center" colspan="3" >
+			<% if @suspicious_orders.length == 0 %>
+			商品が重複している予約は見つかりませんでした．
+			<% end %>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+
+<table class="check" style="margin-top: 1em;" >
+	<caption >複数商品の予約（チェック候補）</caption>
+	<thead >
+		<tr >
+			<th class="id" >予約番号</th>
+			<th class="name" >お名前</th>
+			<th class="due" >お渡し日時</th>
+		</tr>
+	</thead>
+	<tbody >
+	<% for order in @multiline_orders %>
+		<tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+			<td class="id" ><%= order.id -%></td>
+			<td class="name" ><%= order.name -%></td>
+			<td class="due" ><%= order.due.to_s(:ja_date) -%></td>
+		</tr>
+	<% end %>
+	</tbody>
+	<tfoot >
+		<tr >
+			<td align="center" colspan="3" >
+			<% if @multiline_orders.length == 0 %>
+			複数の商品を持つ予約は見つかりませんでした．
+			<% end %>
+			</td>
+		</tr>
+	</tfoot>
+</table>

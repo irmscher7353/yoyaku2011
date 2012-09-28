@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  phone: MyString
+  address: MyString
+  due_date: 2011-09-30
+  due_time: 2011-09-30 18:19:35
+
+two:
+  name: MyString
+  phone: MyString
+  address: MyString
+  due_date: 2011-09-30
+  due_time: 2011-09-30 18:19:35

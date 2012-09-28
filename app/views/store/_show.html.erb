@@ -1,0 +1,136 @@
+<table class="show_order" >
+	<caption >ご予約伝票</caption>
+	<tr class="first_line">
+		<td class="id_label" >予約番号</td>
+		<td class="id" ><%= @order.id -%></td>
+		<td class="caption" ></td>
+		<td class="destination" colspan="2" ><%= dest -%></td>
+	</tr>
+	<tr >
+		<td colspan="5" >&nbsp;</td>
+	</tr>
+	<tr class="field" >
+		<td class="label" >お名前</td>
+		<td class="field" colspan="3" ><%= @order.name -%></td>
+		<td class="sama" >様</td>
+	</tr>
+	<tr class="field" >
+		<td class="label" >ＴＥＬ</td>
+		<td class="field" colspan="4" ><%= @order.phone -%></td>
+	</tr>
+	<tr class="field" >
+		<td class="label" >ご住所</td>
+		<td class="field" colspan="4" ><%= @order.address -%>&nbsp;</td>
+	</tr>
+	<tr class="due" >
+		<td class="label" >お渡し日　</td>
+		<td class="field" colspan="4" >
+			<%= sprintf('%2i', @order.due_month ) -%>
+			<label >月</label>
+			<%= sprintf('%2i', @order.due_day ) -%>
+			<label >日</label>
+			<label >（</label><%= @order.weekday -%><label >）</label>
+			<%= sprintf('%2i', @order.due_hour ) -%>
+			<label >：</label>
+			<%= sprintf('%02i' % @order.due_minute ) -%>
+		</td>
+	</tr>
+</table>
+<table class="show_items" <%= 'style="background-image: url(/images/CANCELED.gif);" '.html_safe if @order.state == 'キャンセル' -%>>
+	<thead >
+		<tr >
+			<th class="product" >商　品　名</th>
+			<th class="size" >サイズ</th>
+			<th class="quantity" >数量</th>
+			<th class="price" >金　額</th>
+		</tr>
+	</thead>
+	<tbody >
+	<% reset_cycle %>
+	<% i = 0 %>
+	<% for line_item in @order.line_items.where(["ordered_at = ?", @order.ordered_at ]) %>
+		<tr class="line_items" >
+			<td class="product" ><%= line_item.product.title.title -%></td>
+			<td class="size" ><%= line_item.product.size -%></td>
+			<td class="quantity" ><%= line_item.quantity -%></td>
+			<td class="price" >
+				<%= number_to_currency(line_item.total_price, :precision => 0, :unit => '' ) -%>
+			</td>
+		</tr>
+		<% i += 1 %>
+	<% end %>
+	<% while i < 5 %>
+		<tr >
+			<td class="product" >&nbsp;</td>
+			<td class="size" >&nbsp;</td>
+			<td class="quantity" >&nbsp;</td>
+			<td class="price" >&nbsp;</td>
+		</tr>
+		<% i += 1 %>
+	<% end %>
+	</tbody>
+	<tfoot >
+		<tr >
+			<td class="product" ></td>
+			<th >合 計</th>
+			<td class="total_price" colspan="2" >
+				<%= number_to_currency(@order.total_price, :precision => 0, :unit => '' ) -%>
+				<label > 円</label>
+			</td>
+		</tr>
+		<tr class="payment" >
+			<td class="note" rowspan="3" >備考<div class="note" ><%= @order.note.gsub(/\n/, '<br/>').html_safe -%></div></td>
+			<th class="payment" >代 金</th>
+			<td class="payment" align="center" colspan="2" >
+				<table class="payment" align="center" cellspacing="0" cellpadding="0" >
+					<tr class="payment1" ><td ></td><td >未</td><td>　・　</td><td >済</td></tr>
+					<tr class="payment2" ><td ></td><td ><%= '○' if @order.payment != "済" -%></td><td ></td><td ><%= '○' if @order.payment == "済" -%></td></tr>
+				</table>
+			</td>
+		</tr>
+		<tr class="means" style="visibility: <%= idest == 1 ? 'visible' : 'hidden' -%>;" >
+			<th class="means" >受 付</th>
+			<td class="means" align="center" colspan="2" >
+				<%= @order.means %>
+			</td>
+		</tr>
+		<tr class="comment" >
+			<td class="comment<%= idest -%>" colspan="3" ></td>
+		</tr>
+	</tfoot>
+</table>
+<table class="trailer" >
+	<tr >
+		<td class="conclusion" colspan="2" >
+			<%= @conclusion -%><br/>
+		</td>
+		<td class="receptionist" rowspan="3" >担　当</td>
+		<td class="receptionist" rowspan="3" >&nbsp;</td>
+	</tr>
+	<tr >
+		<td class="logo" rowspan="3" >
+			<img id="logo" src="/images/PremierLogo.png" alt="Premier Logo" />
+		</td>
+		<td class="store_title" >
+			スイーツカフェ　<span class="store_title" >プルミエ</span>
+		</td>
+	</tr>
+	<tr >
+		<td class="store_address" rowspan="2" >
+			群馬県太田市鳥山下町395-1<br/>
+			TEL／0276-32-6090<br/>
+			営業時間／10:00～20:00
+		</td>
+	</tr>
+	<tr >
+		<td class="receipt_date" colspan="2" >
+		受注日&nbsp;
+		<span ><%= i_to_year(@order.ordered_at) -%></span>
+		年&nbsp;
+		<span ><%= i_to_month(@order.ordered_at) -%></span>
+		月&nbsp;
+		<span ><%= i_to_day(@order.ordered_at) -%></span>
+		日
+		</td>
+	</tr>
+</table>

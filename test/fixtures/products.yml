@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  size: MyString
+  price: 1
+  remain: 1
+
+two:
+  title: MyString
+  size: MyString
+  price: 1
+  remain: 1

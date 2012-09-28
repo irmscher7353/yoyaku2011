@@ -1,0 +1,29 @@
+<table class="show" >
+	<tr >
+		<td class="print" >
+			<form id="print_direct" style="display: none;" >
+				<input type="button" value="印刷" onClick="print_direct();" />
+			</form>
+			<div id="print_preview" style="display: none;" >
+				印刷は，ナビゲーションツールバーのプレビューボタンから行います．<br/>
+				<img src="/images/PrintPreviewButtonSmall.png" />
+			</div>
+			<br/>
+			<%= button_to '変更', sprintf('/store/edit/%d', @order.id), :method => :get -%>
+		</td>
+		<td ><%= render 'show', :idest => 1, :dest => '①店舗控' -%></td>
+		<td id="intermission" >&nbsp;</td>
+		<td ><%= render 'show', :idest => 2, :dest => '②お客様控' -%></td>
+	</tr>
+	<tr class="print" >
+		<td >
+		</td>
+		<td class="print" colspan="3" align="center" >
+			画面表示が乱れていても，印刷は正しいレイアウトで印刷されます．<br/>
+		</td>
+	</tr>
+</table>
+
+<script language="JavaScript" >
+	start_show(<%= @order.id -%>);
+</script>

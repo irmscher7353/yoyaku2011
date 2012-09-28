@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id:</b>
+  <%= @product.id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @product.title.title %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%= @product.size %>
+</p>
+
+<p>
+  <b>Release:</b>
+  <%= @product.release %>
+</p>
+
+<p>
+  <b>OnSale:</b>
+  <%= @product.on_sale %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @product.price %>
+</p>
+
+<p>
+  <b>Limitation:</b>
+  <%= @product.limitation %>
+</p>
+
+<p>
+  <b>Remain:</b>
+  <%= @product.remain %>
+</p>
+
+
+<%= link_to '編集', edit_product_path(@product) %> |
+<%= link_to '一覧に戻る', products_path %>

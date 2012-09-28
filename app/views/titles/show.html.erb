@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id:</b>
+  <%= @title.id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @title.title %>
+</p>
+
+<p>
+  <b>Release:</b>
+  <%= @title.release %>
+</p>
+
+<p>
+  <b>OnSale:</b>
+  <%= @title.on_sale %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @title.description %>
+</p>
+
+<p>
+  <b>Image url:</b>
+  <%= @title.image_url %>
+</p>
+
+
+<%= link_to '編集', edit_title_path(@title) %> |
+<%= link_to '一覧に戻る', titles_path %>

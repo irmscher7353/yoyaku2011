@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sweets Cafe | Premier</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag    "print/store.css", :media => 'print' %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="columns" >
+	<div id="side" >
+		<div >
+			<%= link_to "予約一覧", '/store/index' %>
+		</div>
+		<div >
+			<%= link_to "新規予約", '/store/new' %>
+		</div>
+		<div >
+			<br/>
+		</div>
+		<div >
+			<label class="order_id_to_edit"
+				>予約番号</label><input id="order_id_to_edit" size="8" type="number" /><br/>
+			<%= link_to "表示印刷", '', :remote => true, :onClick => 'link_to_show();' -%><br/>
+			<%= link_to "予約変更", '', :remote => true, :onClick => 'link_to_edit();' -%><br/>
+		</div>
+		<div >
+			<br/>
+		</div>
+		<div >
+			<%= link_to "予約集計", '/store/summary' %>
+		</div>
+		<div >
+			<br/>
+		</div>
+		<div >
+			<%= link_to "品名管理", '/titles' %>
+		</div>
+		<div >
+			<%= link_to "商品管理", '/products' %>
+		</div>
+		<div >
+			<%= link_to "設定管理", '/preferences' %>
+		</div>
+		<div >
+			<%= link_to "予約管理", :controller => :orders %>
+		</div>
+		<div >
+			<%= link_to "詳細管理", :controller => :line_items %>
+		</div>
+		<div >
+		<% if Rails.env.production? %>
+			<img src="/images/PremierLogoColor.png" alt="Premier Logo Color" />
+		<% else %>
+			<br/>
+			<%= Rails.env -%>
+		<% end %>
+		</div>
+	</div>
+	<div id="main" >
+<%= yield %>
+	</div>
+</div>
+
+</body>
+</html>

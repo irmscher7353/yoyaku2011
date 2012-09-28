@@ -1,0 +1,705 @@
+// Place all the styles related to the store controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// vim:ts=4:sw=4
+
+@import "defaults";
+
+.due_column {
+	padding: 0px 14px 0px 14px
+}
+
+.list-line-odd {
+	background: white;
+}
+
+.list-line-even {
+	background: wheat;
+}
+
+.price {
+	text-align: right;
+}
+
+.backbutton {
+	font-size: large;
+//	height: 32px;
+	margin: 0px 16px 4px 16px;
+	padding: 4px 0px 4px 0px;
+	width: 4em;
+}
+
+.due_selector {
+	display: inline;
+	vertical-align: top;
+	width: 10%;
+}
+
+.hourbutton {
+	display: inline;
+	font-size: large;
+//	height: 32px;
+	margin: 0px 0px 4px 0px;
+	padding: 4px 0px 4px 0px;
+	width: 2em;
+}
+
+.kanabutton {
+	font-size: large;
+//	height: 32px;
+	margin: 0px 0px 4px 0px;
+	padding: 4px 0px 4px 0px;
+	width: 2em;
+}
+
+.ktaibutton {
+	font-size: large;
+//	height: 32px;
+	margin: 0px 0px 4px 0px;
+	padding: 4px 0px 4px 0px;
+	width: 6.5em;
+}
+
+.nonebutton {
+	font-size: large;
+//	height: 32px;
+	margin: 0px 0px 4px 0px;
+	padding: 4px 0px 4px 0px;
+	visibility: hidden;
+	width: 2em;
+}
+
+.phrasebutton {
+	font-size: large;
+	margin: 0px 0px 4px 0px;
+	padding: 4px 0px 4px 0px;
+	width: 16em;
+}
+
+.quantitybutton {
+//	height: 32px;
+	margin: 0px 0px 4px 0px;
+	padding: 4px 0px 4px 0px;
+	width: 3em;
+}
+
+.remain {
+	text-align: center;
+	width: 3em;
+}
+
+.sizebutton {
+//	height: 32px;
+	margin: 0px 0px 4px 0px;
+	padding: 4px 0px 4px 0px;
+	position: relative; top: 0px; left: 0px;
+	width: 8em;
+}
+
+.spacebar {
+	font-size: large;
+//	height: 32px;
+	margin: 0px 0px 4px 100px;
+	padding: 4px 0px 4px 0px;
+	width: 16em;
+}
+
+.submitbutton {
+	font-size: large;
+	font-weight: bold;
+//	height: 32px;
+	padding: 4px 9px 4px 9px;
+	width: 6em;
+}
+
+input.submitbutton {
+	margin-bottom: 0.5em;
+}
+
+.titlebutton {
+//	height: 32px;
+	margin: 0px 0px 4px 0px;
+	padding: 4px 0px 4px 0px;
+	position: relative; top: 0px; left: 0px;
+	text-align: center;
+	width: 16em;
+}
+
+span.soldout {
+	color: tomato;
+	font-size: x-small;
+	font-weight: bold;
+	position: absolute; bottom: 0px; right: 0.5em;
+}
+
+.titlepagerbutton {
+//	height: 32px;
+	margin: 0px 1em 0px 1em;
+	padding: 0px 0px 0px 0px;
+	width: 3em;
+}
+
+.titlepagercell {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	text-align: center;
+}
+
+.total {
+	font-weight: bold;
+	text-align: right;
+}
+
+.total_price {
+	font-size: large;
+	font-weight: bold;
+	text-align: right;
+}
+
+.ordered_at {
+	text-align: right;
+}
+
+#cancelbutton {
+	color: tomato;
+	display: none;
+	margin-top: 0.5em;
+}
+
+#revertbutton {
+	color: green;
+	display: none;
+	margin-top: 0.5em;
+}
+
+#title_selector {
+//	display: none; /* set_titlepage() しても表示されなくなってしまう */
+	text-align: center;
+}
+
+div.mkey_selector {
+//	position: relative;
+	height: 0px;
+}
+
+div.order {
+	line-height: 150%;
+}
+
+label.payment {
+	font-weight: bold;
+}
+
+label.total {
+	font-weight: bold;
+}
+
+input.quantity {
+	ime-mode: disabled;
+	text-align: right;
+	width: 3em;
+}
+
+input.size {
+	width: 8em;
+	text-align: center;
+}
+
+input.title {
+	min-width: 16em;
+}
+
+span.store_title {
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+table caption {
+	font-size: x-large;
+	font-weight: bold;
+	margin-bottom: 0.0em;
+	padding-top: 0.2em;
+	padding-bottom: 0.3em;
+}
+
+//----------------------------------------------------------------------------
+table.check {
+	td {
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	td.id {
+		text-align: right;
+	}
+	td.due {
+		text-align: center;
+	}
+	td.due, th.due {
+		width: 10em;
+	}
+	td.name, th.name {
+		width: 20em;
+	}
+	th {
+		background: tan;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+}
+
+//----------------------------------------------------------------------------
+table.dueselector, th.dueselector, tr.dueselector {
+//	background: pink;
+	margin-top: 0em;
+	padding-top: 0em;
+}
+
+//----------------------------------------------------------------------------
+table.index {
+	@include table-default;
+	input#id {
+		ime-mode: disabled;
+	}
+	input#phone {
+		ime-mode: disabled;
+	}
+	input.number_field {
+		text-align: right;
+	}
+	select.number_field {
+		ime-mode: disabled;
+		text-align: center;
+		width: 4em;
+	}
+	tr {
+		td.edit {
+			padding-left: 1em;
+			padding-right: 1em;
+			text-align: center;
+		}
+		td.means {
+			min-width: 4em;
+		}
+	}
+}
+
+//----------------------------------------------------------------------------
+table.order .number_field {
+	font-size: large;
+	font-weight: bold;
+	ime-mode: disabled;
+	text-align: center;
+	width: 2em;
+}
+
+table.order #order_id_field {
+	text-align: right;
+	width: 4em;
+}
+
+table.order .phone_field {
+	font-size: large;
+	font-weight: bold;
+	ime-mode: disabled;
+	text-align: center;
+}
+
+table.order .text_field {
+	font-size: large;
+	font-weight: bold;
+	text-align: center;
+}
+
+table.order {
+	input#note {
+		ime-mode: active;
+	}
+	td.blank {
+		height: 0px;
+		margin: 0px 0px 0px 0px;
+		padding: 0px 0px 0px 0px;
+	}
+	tr.note {
+		vertical-align: top;
+		margin: 0px 0px 0px 0px;
+		padding: 0px 0px 0px 0px;
+	}
+}
+
+//----------------------------------------------------------------------------
+table.order_line_items {
+	td.checkout {
+		height: 100%;
+		max-height: 100%;
+	}
+	td.means {
+//		font-size: large;
+		font-weight: bold;
+		height: 100%;
+		margin-bottom: 0.2em;
+		max-height: 100%;
+	}
+	td.payment {
+		font-size: large;
+		font-weight: bold;
+		height: 100%;
+		margin-bottom: 0.2em;
+		max-height: 100%;
+	}
+	td.price {
+		border-bottom: 1px solid gray;
+		min-width: 8em;
+	}
+	td.state {
+		min-width: 5em;
+		text-align: center;
+	}
+	td.remain {
+		border-bottom: 1px solid gray;
+	}
+	tr.note {
+		vertical-align: top;
+		td.note {
+			padding: 0.0em 0.0em 0.0em 0.5em;
+		}
+	}
+	th {
+		background: inherit;
+		wite-space: nowrap;
+	}
+}
+
+//----------------------------------------------------------------------------
+table.summary {
+	@include table-default;
+	tr {
+		td, th {
+//			position: absolute; left: 0px; top: 0px;
+			white-space: nowrap;
+		}
+		td.count {
+			min-width: 3em;
+			padding-right: 1em;
+			text-align: right;
+			white-space: nowrap;
+		}
+		td.delivered {
+			color: forestgreen;
+			min-width: 2em;
+			padding-right: 0.5em;
+			text-align: right;
+			a {
+				color: inherit;
+			}
+		}
+		td.remained {
+			color: tomato;
+			min-width: 2em;
+			padding-right: 0.5em;
+			text-align: right;
+			a {
+				color: inherit;
+			}
+		}
+		td.reserved {
+			color: slateblue;
+			min-width: 2em;
+			padding-right: 0.5em;
+			text-align: right;
+			a {
+				color: inherit;
+			}
+		}
+		td.subcount {
+			min-width: 2em;
+			padding-right: 0.5em;
+			text-align: right;
+			a {
+				color: inherit;
+			}
+		}
+		td.symbol, th.symbol {
+			padding: 0.0em 0.2em 0.0em 0.2em;
+			text-align: center;
+		}
+		th {
+			padding: 0.0em 0.5em 0.0em 0.5em;
+		}
+		th.delivered {
+			color: forestgreen;
+			min-width: 2em;
+			text-align: center;
+			a {
+				color: inherit;
+			}
+		}
+		th.remained {
+			color: tomato;
+			min-width: 2em;
+			text-align: center;
+			a {
+				color: inherit;
+			}
+		}
+		th.reserved {
+			color: slateblue;
+			min-width: 2em;
+			text-align: center;
+			a {
+				color: inherit;
+			}
+		}
+		th.subcount {
+			min-width: 2em;
+			text-align: center;
+			a {
+				color: inherit;
+			}
+		}
+	}
+}
+
+//----------------------------------------------------------------------------
+table.show {
+	label {
+		font-size: 10pt;
+	}
+	td#intermission {
+		width: 5mm;
+	}
+	tr td.print {
+		padding: 1.0em 1.0em 0.0em 0.0em;
+		vertical-align: top;
+		max-width: 128px;
+		div#print_preview {
+			font-size: small;
+		}
+		input {
+			font-size: large;
+			font-weight: bold;
+			padding: 4px 9px 4px 9px;
+			width: 6em;
+		}
+	}
+	tr.print {
+//		display: none;
+	}
+}
+
+//----------------------------------------------------------------------------
+table.show_items {
+//	background-image: url(/images/CANCELED.gif);
+	background-position: center center;
+	background-repeat: no-repeat;
+	border-collapse: collapse;
+	font-size: 10pt;
+	margin-top: 4pt;
+	table-layout: fixed;
+	width: 100mm;
+	td {
+		border: 1pt solid black;
+	}
+	td.payment {
+//		background-image: url(/images/circle.png);
+//		background-position: center;
+//		background-repeat: no-repeat;
+		border-left: 0pt solid black;
+		font-size: 12pt;
+		text-align: center;
+	}
+	td.price {
+		padding-right: 0.5em;
+		text-align: right;
+	}
+	td.product {
+		padding: 2pt 0pt 2pt 10pt;
+	}
+	td.quantity {
+		padding-right: 1.0em;
+		text-align: right;
+	}
+	td.total_price {
+		border: 1.5pt solid black;
+		font-size: 14pt;
+		font-weight: bold;
+		padding-right: 0.5em;
+		text-align: right;
+	}
+	td.note {
+		font-size: 9pt;
+		padding-top: 2pt;
+		vertical-align: top;
+		div.note {
+			font-size: 10pt;
+			margin: 2pt 2pt 0pt 4pt;
+		}
+	}
+	tfoot {
+		td.comment1 {
+		}
+		td.comment2 {
+			border-top: 0pt none black;
+		}
+		td.means {
+			border-left: 1pt none black;
+			border-bottom: 0pt none black;
+		}
+		th.means {
+			border-right: 1pt none black;
+			border-bottom: 0pt none black;
+		}
+		tr {
+			height: 20pt;
+		}
+		tr.comment {
+			height: 20mm;
+		}
+	}
+	th {
+		border: 1pt solid black;
+		font-size: 8pt;
+		font-weight: normal;
+		text-align: center;
+	}
+	th.payment {
+		border-right: 0pt none black;
+	}
+}
+
+table.show_items .product {
+	width: 40mm;
+}
+
+table.show_items .size {
+	text-align: center;
+	width: 10mm;
+}
+
+table.show_items .quantity {
+	width: 10mm;
+}
+
+table.show_items .price {
+	width: 15mm;
+}
+
+//----------------------------------------------------------------------------
+table.show_order {
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 100mm;
+	caption {
+		font-size: 16pt;
+		font-weight: bold;
+		height: 4pt;
+	}
+	td {
+//		border-bottom: 1pt solid black;
+		font-size: 10pt;
+		white-space: nowrap;
+	}
+	td.caption {
+		width: 40%;
+	}
+	td.destination {
+		font-size: 9pt;
+		text-align: center;
+	}
+	td.field {
+		font-size: 16pt;
+		font-weight: bold;
+	}
+	td.id {
+		border-bottom: 1pt solid black; 
+		padding-right: 0.5em;
+		text-align: right;
+		width: 3em;
+	}
+	td.id_label {
+		font-size: 9pt;
+	}
+	td.sama {
+		text-align: right;
+		max-width: 16pt;
+	}
+	tr.due {
+		border-bottom: 1pt solid black; 
+		background: tan;
+		vertical-align: baseline;
+	}
+	tr.field {
+		border-bottom: 1pt solid black; 
+		min-height: 18pt;
+		vertical-align: baseline;
+	}
+}
+
+//----------------------------------------------------------------------------
+table.payment {
+	border-collapse: collapse;
+	font-size: 10pt;
+//	margin: 0mm 0mm 0mm 0mm;
+	padding: 0mm 0mm 0mm 0mm;
+//	position: relative;
+	td {
+		border-width: 0mm;
+	}
+	tr.payment1 {
+		height: 0mm;
+		line-height: 0mm;
+//		positon: absolute; top: 0mm; left: 0mm;
+		vertical-align: middle;
+	}
+	tr.payment2 {
+		font-size: 20pt;
+		font-weight: lighter;
+		height: 0mm;
+		line-height: 0mm;
+//		positon: absolute; top: 0mm; left: 0mm;
+		vertical-align: middle;
+	}
+}
+
+//----------------------------------------------------------------------------
+table.trailer {
+	border-collapse: collapse;
+	font-size: 6pt;
+	margin-top: 4pt;
+	table-layout: fixed;
+	white-space: nowrap;
+	width: 100mm;
+	img {
+		margin: 0mm 0mm 0mm 0mm;
+		padding: 0mm 0mm 0mm 0mm;
+		width: 32mm;
+	}
+	td.conclusion {
+		margin-top: 0mm;
+		padding-top: 0mm;
+	}
+	td.store_address {
+	}
+	td.store_title {
+		font-size: 7pt;
+		vertical-align: middle;
+	}
+	td.receptionist {
+		border: 1px solid black;
+		font-size: 7pt;
+		height: 10mm;
+		text-align: center;
+		vertical-align: top;
+		width: 15mm;
+	}
+	td.receipt_date {
+		border-bottom: 0.5pt solid black;
+		font-size: 6pt;
+		padding-bottom: 0mm;
+		padding-top: 2pt;
+		text-align: center;
+		vertical-align: bottom;
+		span {
+			font-size: 8pt;
+		}
+	}
+}

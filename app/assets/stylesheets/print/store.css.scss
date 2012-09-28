@@ -1,0 +1,311 @@
+@page {
+	size: 257mm 182mm; /* B5 landscape */
+	margin: 10mm 14mm 10mm 14mm;
+}
+
+.list-line-odd {
+	background: white;
+}
+
+.list-line-even {
+	background: wheat;
+}
+
+div#side {
+	display: none;
+}
+
+div#main {
+	page-break-inside: avoid;
+}
+
+label {
+	font-size: 10pt;
+}
+
+table.show td#intermission {
+	width: 29mm;
+}
+
+table.show tr td.print {
+	display: none;
+}
+
+table.show tr.print {
+	display: none;
+}
+
+table.show_items {
+/*	background-image: url(/images/CANCELED.gif); /* */
+	background-repeat: no-repeat;
+	background-position: center center;
+	border-collapse: collapse;
+	font-size: 10pt;
+	margin-top: 4pt;
+	table-layout: fixed;
+	width: 100mm;
+}
+
+table.show_items .product {
+	width: 40mm;
+}
+
+table.show_items .size {
+	text-align: center;
+	width: 10mm;
+}
+
+table.show_items .quantity {
+	width: 10mm;
+}
+
+table.show_items td {
+	border: 1pt solid black;
+}
+
+table.show_items td.product {
+	padding: 2pt 0pt 2pt 10pt;
+}
+
+table.show_items td.quantity {
+	padding-right: 1.0em;
+	text-align: right;
+}
+
+table.show_items .price {
+	width: 15mm;
+}
+
+table.show_items td.price {
+	padding-right: 0.5em;
+	text-align: right;
+}
+
+table.show_items td.total_price {
+	border: 1.5pt solid black;
+	font-size: 14pt;
+	font-weight: bold;
+	padding-right: 0.5em;
+	text-align: right;
+}
+
+table.show_items td.payment {
+/*	background-image: url(/images/circle.png); /* */
+/*	background-position: center; /* */
+/*	background-repeat: no-repeat; /* */
+	border-left: 0pt solid black;
+	font-size: 12pt;
+	text-align: center;
+}
+
+table.show_items th {
+	font-size: 8pt;
+	font-weight: normal;
+}
+
+table.show_items th.payment {
+	border-right: 0pt solid black;
+}
+
+table.show_items td.note {
+	font-size: 9pt;
+	padding-top: 2pt;
+	vertical-align: top;
+	div.note {
+		font-size: 10pt;
+		margin: 2pt 2pt 0pt 4pt;
+	}
+}
+
+table.show_items tfoot {
+	td.comment1 {
+	}
+	td.comment2 {
+		border-top: 0pt none black;
+	}
+	td.means {
+		border-left: 1pt none black;
+		border-bottom: 0pt none black;
+	}
+	th.means {
+		border-right: 1pt none black;
+		border-bottom: 0pt none black;
+	}
+	tr {
+		height: 20pt;
+	}
+	tr.comment {
+		height: 20mm;
+	}
+}
+
+table.show_items th {
+/*	background: tan; /* */
+	border: 1pt solid black;
+}
+
+table.show_order {
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 100mm;
+}
+
+table.show_order caption {
+	font-size: 16pt;
+	font-weight: bold;
+	height: 4pt;
+}
+
+table.show_order td {
+/*	border-bottom: 1pt solid black; /* */
+	font-size: 10pt;
+	white-space: nowrap;
+}
+
+table.show_order td.destination {
+	font-size: 9pt;
+	text-align: center;
+}
+
+table.show_order td.caption {
+	width: 40%;
+}
+
+table.show_order td.field {
+	font-size: 16pt;
+	font-weight: bold;
+}
+
+table.show_order td.id {
+	border-bottom: 1pt solid black; 
+	padding-right: 0.5em;
+	text-align: right;
+	width: 3em;
+}
+
+table.show_order td.id_label {
+	font-size: 9pt;
+}
+
+table.show_order td.sama {
+	text-align: right;
+	max-width: 16pt; /* */
+}
+
+table.show_order tr.field {
+	border-bottom: 1pt solid black; 
+	min-height: 18pt;
+	vertical-align: baseline;
+}
+
+table.show_order tr.due {
+	border-bottom: 1pt solid black; 
+	background: lightgray; /* tan; /* */
+	vertical-align: baseline;
+}
+
+span.store_title {
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+table.payment td {
+	border-width: 0pt;
+}
+
+table.payment {
+	border-collapse: collapse;
+	font-size: 10pt;
+/*	margin: 0mm 0mm 0mm 0mm; /* */
+	padding: 0mm 0mm 0mm 0mm;
+/*	position: relative; /* */
+}
+
+table.payment td {
+	border-width: 0pt;
+}
+
+table.payment tr.payment1 {
+	height: 0mm;
+	line-height: 0mm;
+/*	positon: absolute; top: 0mm; left: 0mm; /* */
+	vertical-align: middle;
+}
+
+table.payment tr.payment2 {
+	font-size: 20pt;
+	font-weight: lighter;
+	height: 0mm;
+	line-height: 0mm;
+/*	positon: absolute; top: 0mm; left: 0mm; /* */
+	vertical-align: middle;
+}
+
+table.summary {
+	border-collapse: collapse;
+	th {
+		border: 1.0pt solid black;
+		white-space: nowrap;
+	}
+	td {
+		border: 0.5pt solid black;
+		white-space: nowrap;
+	}
+	td.count,td.subcount {
+		padding-right: 4pt;
+		text-align: right;
+	}
+	td.size {
+		text-align: center;
+	}
+}
+
+table.trailer {
+	border-collapse: collapse;
+	font-size: 6pt;
+	margin-top: 4pt;
+	table-layout: fixed;
+	white-space: nowrap;
+	width: 100mm;
+}
+
+table.trailer img {
+	margin: 0mm 0mm 0mm 0mm;
+	padding: 0mm 0mm 0mm 0mm;
+	width: 32mm;
+}
+
+table.trailer td.conclusion {
+	margin-top: 0pt;
+	padding-top: 0pt;
+}
+
+table.trailer td.store_address {
+}
+
+table.trailer td.store_title {
+	font-size: 7pt;
+	vertical-align: middle;
+}
+
+table.trailer td.receptionist {
+	border: 1px solid black;
+	font-size: 7pt;
+	height: 10mm;
+	text-align: center;
+	vertical-align: top;
+	width: 15mm;
+}
+
+table.trailer td.receipt_date {
+	border-bottom: 0.5pt solid black;
+	font-size: 6pt;
+	padding-bottom: 0pt;
+	padding-top: 2pt;
+	text-align: center;
+	vertical-align: bottom;
+}
+
+table.trailer td.receipt_date span {
+	font-size: 8pt;
+}

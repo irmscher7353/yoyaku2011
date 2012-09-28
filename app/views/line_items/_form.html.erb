@@ -1,0 +1,44 @@
+<%= form_for(@line_item) do |f| %>
+  <% if @line_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@line_item.errors.count, "error") %> prohibited this line_item from being saved:</h2>
+
+      <ul>
+      <% @line_item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :id %><br />
+    <%= f.number_field :id, :disabled => true %>
+  </div>
+  <div class="field">
+    <%= f.label :order_id, '予約番号' %><br />
+    <%= f.number_field :order_id, :disabled => true %>
+  </div>
+  <div class="field">
+    <%= f.label :product_id, '商品名・サイズ' %><br />
+	<%= text_field_tag :title, Title.find(@line_item.product.title_id).title, :disabled => true %>
+	<%= text_field_tag :size, Product.find(@line_item.product_id).size, :disabled => true %>
+    <%= f.number_field :product_id, :disabled => true %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity, '数量' %><br />
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :total_price, '金額（小計）' %><br />
+    <%= f.number_field :total_price %>
+  </div>
+  <div class="field">
+    <%= f.label :ordered_at, '予約更新日時' %><br />
+    <%= f.number_field :ordered_at %>
+		<%= text_field_tag :ordered_at, i_to_datetime_s(@line_item.ordered_at, :ja_date), disabled: true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

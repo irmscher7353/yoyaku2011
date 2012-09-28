@@ -1,0 +1,33 @@
+// Place all the styles related to the products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// vim:ts=4:sw=4
+
+@import "defaults";
+
+div.field {
+	input#product_id_field {
+		text-align: right;
+		width: 4em;
+	}
+	input#product_limitation {
+		text-align: right;
+		width: 4em;
+	}
+	input#product_title_id_field {
+		text-align: right;
+		width: 4em;
+	}
+	input#product_price {
+		text-align: right;
+		width: 4em;
+	}
+	input#product_remain {
+		text-align: right;
+		width: 4em;
+	}
+}
+
+table.products {
+	@include table-default;
+}

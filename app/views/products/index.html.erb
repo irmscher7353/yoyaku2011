@@ -1,0 +1,53 @@
+<h1>商品一覧<!--Listing products --></h1>
+
+<%= link_to '商品追加', new_product_path %>
+
+<br/>
+
+<table class="products" >
+	<thead >
+  <tr>
+  	<th>Id</th>
+    <th>品名<!-- Title --></th>
+    <th>サイズ<!-- Size --></th>
+    <th>リリース<!-- Release --></th>
+    <th>発売中<!-- OnSale --></th>
+    <th>価格<!-- Price --></th>
+    <th>限定数<!-- Limitation --></th>
+    <th>残り<!-- Remain --></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  	</thead>
+
+	<tbody >
+<% @products.each do |product| %>
+  <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+	<td class="id" ><%= product.id -%></td>
+    <td class="title" ><%= product.title.title %></td>
+    <td class="size" ><%= product.size %></td>
+    <td class="release" ><%= product.release %></td>
+    <td class="on_sale" ><%= product.title.on_sale ? '○' : '－' -%>*<%= product.on_sale ? '○' : '－' -%>=<%= product.title.on_sale && product.on_sale ? '○' : '－' -%></td>
+    <td class="price" ><%= product.price %></td>
+    <td class="limitation" ><%= product.limitation %></td>
+    <td class="remain" ><%= product.remain %></td>
+    <td class="link" ><%= link_to '表示', product %></td>
+    <td class="link" ><%= link_to '編集', edit_product_path(product) %></td>
+    <td class="link" ><%= link_to '削除', product, confirm: '本当に削除してよろしいですか？', method: :delete %></td>
+  </tr>
+<% end %>
+	</tbody>
+</table>
+
+<dl >
+	<dt >「発売中」欄について</dt>
+	<dd >
+		「発売中」欄には，<br/>
+		<code >（品名が発売中かどうか）*（商品が発売中かどうか）=（実際にその商品が発売中かどうか）</code><br/>
+		が表示されれます．<br/>
+		つまり，商品が発売中であっても，品名が発売停止である場合，その商品は発売中とは見なされません．
+	</dd>
+</dl>
+
+<%= link_to '商品追加', new_product_path %>

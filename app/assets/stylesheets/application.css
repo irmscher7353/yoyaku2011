@@ -1,0 +1,72 @@
+/* vim:ts=4:sw=4
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *  require_tree . 
+ *= require_directory .
+*/
+
+div.caution {
+	color: tomato;
+}
+
+div#columns {
+	background: darkgreen;
+}
+
+div#main {
+	background: linen;
+	margin-left: 14em;
+	min-height: 540px;
+	padding: 0.5em 0em 1em 1em;
+}
+
+div#side {
+	background: darkgreen;
+	color: wheat;
+	float: left;
+	min-height: 540px;
+	padding: 1em 1em 0.5em 1em;
+	width: 12em;
+}
+
+div a:active {
+/*	color: wheat; /* */
+}
+
+div#side a:hover {
+	border-color: tan;
+/*	color: wheat; /* */
+}
+
+div a:link {
+/*	color: wheat; /* */
+}
+
+div a:visited {
+/*	color: wheat; /* */
+}
+
+div#side a {
+	background: forestgreen;
+	border: 1px solid wheat;
+	color: wheat;
+	font-size: 120%;
+	font-weight: bold;
+	letter-spacing: 2px;
+	line-height: 200%;
+	outline-width: 0px;
+	padding: 3px 1em 1px 1em;
+	text-decoration: none;
+}
+
+div#side div {
+	margin-bottom: 0.5em;
+}
+
+input#order_id_to_edit {
+	ime-mode: disabled;
+	text-align: right;
+}
+
