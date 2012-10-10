@@ -21,3 +21,17 @@ function link_to_show() {
 		window.open("/store/show/"+order_id, "_top");
 	}
 }
+
+function key_up(e) {
+	var c = (e.keyCode != 0 ? e.keyCode : e.charCode);
+	if (c == 27) {
+		set_focus('order_id_to_edit');
+	}
+}
+
+function set_focus(element_id) {
+	var elem = document.getElementById(element_id);
+	if (elem) {
+		elem.focus();
+	}
+}

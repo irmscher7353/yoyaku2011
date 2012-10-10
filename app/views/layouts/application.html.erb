@@ -7,7 +7,7 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body onLoad="set_focus('order_id_to_edit');" onKeyUp="key_up(event);" >
 
 <div id="columns" >
 	<div id="side" >
@@ -21,7 +21,7 @@
 			<br/>
 		</div>
 		<div >
-			<label class="order_id_to_edit"
+			<label class="order_id_to_edit" 
 				>予約番号</label><input id="order_id_to_edit" size="8" type="number" /><br/>
 			<%= link_to "表示印刷", '', :remote => true, :onClick => 'link_to_show();' -%><br/>
 			<%= link_to "予約変更", '', :remote => true, :onClick => 'link_to_edit();' -%><br/>
