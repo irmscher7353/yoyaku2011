@@ -23,6 +23,27 @@ label {
 	font-size: 10pt;
 }
 
+table.barby_code {
+    margin-top: 2mm;
+    border: 0 none transparent !important;
+    border-collapse: collapse !important;
+    tr.barby_row {
+        border: 0 none transparent !important;
+        border-collapse: collapse !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        td {
+            border: 0 none transparent !important;
+        }
+        td.barby_black {
+            background-color: black !important;
+        }
+        td.barby_white {
+            background-color: white !important;
+        }
+    }
+}
+
 table.show td#intermission {
 	width: 29mm;
 }

@@ -214,6 +214,29 @@ span.store_title {
 	font-weight: bold;
 }
 
+//----------------------------------------------------------------------------
+table.barby_code {
+	margin-top: 0.5em;
+	border: 0 none transparent !important;
+	border-collapse: collapse !important;
+	tr.barby_row {
+		border: 0 none transparent !important;
+		border-collapse: collapse !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		td {
+			border: 0 none transparent !important;
+		}
+		td.barby_black {
+			background-color: black !important;
+		}
+		td.barby_white {
+			background-color: white !important;
+		}
+	}
+}
+
+//----------------------------------------------------------------------------
 table caption {
 	font-size: x-large;
 	font-weight: bold;

@@ -36,3 +36,7 @@ group :test do
   # Pretty printed test output
   gem 'turn', :require => false
 end
+
+gem 'barby'
+require 'barby/barcode/code_39'
+require 'barby/outputter/html_outputter'
