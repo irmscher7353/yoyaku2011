@@ -1,5 +1,7 @@
 Tapp01::Application.routes.draw do
 
+  resources :names
+
   resources :preferences
 
   get  "store/check"
