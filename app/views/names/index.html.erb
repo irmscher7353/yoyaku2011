@@ -1,4 +1,14 @@
-<h1>Listing names</h1>
+<h1>姓名の一覧</h1>
+
+<%= link_to 'New Name', new_name_path %>
+
+<%= link_to 'Absorb', :controller => 'names', :action => :absorb %>
+
+<%= link_to 'Export', :controller => 'names', :action => :export %>
+
+<%= link_to 'Import', :controller => 'names', :action => :import %>
+
+<%= link_to 'DeleteAll', :controller => 'names', :action => :delete_all %>
 
 <table>
   <tr>
@@ -23,3 +33,4 @@
 <br />
 
 <%= link_to 'New Name', new_name_path %>
+

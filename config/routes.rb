@@ -1,9 +1,15 @@
 Tapp01::Application.routes.draw do
 
+  match "names/absorb", :controller => :names, :action => :absorb
+  match "names/delete_all", :controller => :names, :action => :delete_all
+  match "names/export", :controller => :names, :action => :export, :via => :get
+  match "names/import", :controller => :names, :action => :import
+
   resources :names
 
   resources :preferences
 
+  get  "store/absorb_names"
   get  "store/check"
   get  "store/index"
   get  "store/new"

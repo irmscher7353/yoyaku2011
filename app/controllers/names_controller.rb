@@ -1,3 +1,5 @@
+# coding: utf-8
+# vim:sw=2:ts=2
 class NamesController < ApplicationController
   # GET /names
   # GET /names.json
@@ -69,15 +71,83 @@ class NamesController < ApplicationController
     end
   end
 
-  # DELETE /names/1
-  # DELETE /names/1.json
-  def destroy
-    @name = Name.find(params[:id])
-    @name.destroy
+	# DELETE /names/1
+	# DELETE /names/1.json
+	def destroy
+		@name = Name.find(params[:id])
+		@name.destroy
 
-    respond_to do |format|
-      format.html { redirect_to names_url }
-      format.json { head :ok }
-    end
-  end
+		respond_to do |format|
+			format.html { redirect_to names_url }
+			format.json { head :ok }
+		end
+	end
+
+	# PUT /names/absorb
+	def absorb
+
+		for order in Order.all
+			f = order.name.split("　")
+			if f.length == 2
+				name = Name.new(:sei => f[0], :mei => f[1] )
+			else
+				name = Name.new(:sei => order.name, :mei => "" )
+			end
+			name.save
+		end
+
+		respond_to do |format|
+			format.html { redirect_to :action => :index }
+		end
+	end
+
+	# DELETE
+	def delete_all
+
+		Name.delete_all
+
+		respond_to do |format|
+			format.html { redirect_to :action => :index }
+		end
+	end
+
+	# GET /names/export
+	# GET /names/export.json
+	def export
+
+		name_list = []
+		for name in Name.all
+			name_list << [name.sei, name.mei ]
+		end
+
+		File.open('tmp/names.yml', 'w') {|f|
+			f.write YAML.dump(name_list)
+		}
+
+		respond_to do |format|
+			format.html { redirect_to :action => :index }
+			format.json { render json: @orders }
+		end
+	end
+
+	# PUT /names/import
+	# PUT /names/import.json
+	def import
+
+		name_list = []
+		File.open('tmp/names.yml', 'r') {|f|
+			name_list = YAML.load(f.read)
+		}
+
+		for seimei in name_list
+			name = Name.new(:sei => seimei[0], :mei => seimei[1] )
+			name.save
+		end
+
+		respond_to do |format|
+			format.html { redirect_to :action => :index }
+			format.json { render json: @orders }
+		end
+	end
+
 end
