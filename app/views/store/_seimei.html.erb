@@ -1,0 +1,13 @@
+<table class="seimei" >
+<% n_rows = 4 %>
+<% n_cols = 4 %>
+	<tr ><td >length = <%= @seimei ? @seimei.length : "N/A" -%></td></tr>
+	<tr ><td >length = <%= seimei ? seimei.length : "N/A" -%></td></tr>
+<% for i_row in 1 .. n_rows %>
+	<tr class="seimei" >
+	<% for i_col in 1 .. n_cols %>
+		<td class="seimei" ><%= i_row -%>,<%= i_col -%></td>
+	<% end %>
+	</tr>
+<% end %>
+</table>
