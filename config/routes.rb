@@ -18,6 +18,7 @@ Tapp01::Application.routes.draw do
   post "store/cancel_order"
   post "store/deliver_order"
   post "store/save_order"
+  get  "store/seimei"
   get  "store/show"
   match 'store/show/:id', :controller => :store, :action => :show
   get  "store/summary"

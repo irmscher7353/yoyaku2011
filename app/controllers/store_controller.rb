@@ -111,7 +111,7 @@ class StoreController < ApplicationController
 		selected = ' selected="selected"'
 
 		respond_to do |format|
-			format.html # new.html.erb
+			format.html # index.html.erb
 		end
 	end
 
@@ -122,9 +122,10 @@ class StoreController < ApplicationController
 		@order = find_order
 		@order_disabled = @order.state && @order.state != STATE_NORMAL
 		@cart = find_cart
+		@seimei = []
 
 		respond_to do |format|
-			format.html # index.html.erb
+			format.html # new.html.erb
 		end
   end
 
@@ -384,6 +385,35 @@ private
 		end
 
 		result
+	end
+
+	def seimei
+
+		@seimei = []
+
+		if params[:name]
+			str = params[:name]
+			if str =~ /　/
+				sei, mei = str.split("　")
+				if mei == ""
+					for name in Name.where(['sei = ?', sei ]).group('mei')
+						@seimei << name.mei
+					end
+				else
+					for name in Name.where(['mei like ?', "#{mei}%" ]).group('mei')
+						@seimei << name.mei
+					end
+				end
+			else
+				for name in Name.where(['sei like ?', "#{str}%" ]).group('sei')
+					@seimei << name.sei
+				end
+			end
+		end
+
+		respond_to do |format|
+			format.js
+		end
 	end
 
 end
