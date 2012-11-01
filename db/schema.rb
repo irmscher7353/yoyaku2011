@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121020140715) do
+ActiveRecord::Schema.define(:version => 20121101203656) do
 
   create_table "line_items", :force => true do |t|
     t.integer  "order_id"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20121020140715) do
     t.datetime "updated_at"
     t.boolean  "on_sale",     :default => true
     t.string   "release",     :default => ""
+    t.integer  "priority",    :default => 55
   end
 
 end
