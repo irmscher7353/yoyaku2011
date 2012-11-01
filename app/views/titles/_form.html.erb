@@ -24,6 +24,10 @@
     <%= f.text_field :release %>
   </div>
   <div class="field">
+    <%= f.label :priority, '順序 (00～99)' %><br />
+    <%= f.text_field :priority %>
+  </div>
+  <div class="field">
     <%= f.label :on_sale, '発売中' %><br />
     <%= f.check_box :on_sale %>
   </div>
