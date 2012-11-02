@@ -1,0 +1,19 @@
+<% if 0 < @reminder.length %>
+<table class="reminder" align="center" >
+	<tr class="reminder" >
+		<th class="title" >商 品 名</th>
+		<th class="remain" >残り</th>
+	</tr>
+<% for reminder in @reminder %>
+	<tr class="reminder" >
+		<td class="title" ><%= reminder[:product].title.title -%></td>
+		<td class="<%= reminder[:classname] -%>" ><%= reminder[:remain] -%></td>
+	</tr>
+<% end %>
+	<tr >
+		<td class="button" colspan="2" >
+			<%= button_tag '了解', onClick: "close_reminder();", remote: true %>
+		</td>
+	</tr>
+</table>
+<% end %>

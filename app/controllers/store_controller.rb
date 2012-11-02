@@ -199,6 +199,7 @@ class StoreController < ApplicationController
 		while @cart.items.length < MIN_LINES
 			@cart.items << CartItem.new
 		end
+		@seimei = []
 
 		respond_to do |format|
 			format.html # edit.html.erb
@@ -327,6 +328,28 @@ class StoreController < ApplicationController
 			@conclusion = pref.value.gsub(/\n/, '<br/>').html_safe
 		else
 			@conclusion = ''
+		end
+		ordered_products = []
+		for li in @order.line_items
+			ordered_products << li.product.id
+		end
+		@reminder = []
+		for product in Product.find_products_for_sale
+			if 0 <= product.remain and product.remain < 10
+				if 0 < product.remain
+					classname = "remain"
+					remain = product.remain
+				else
+					if ordered_products.include?(product.id)
+						classname = "just_soldout"
+						remain = "完売しました"
+					else
+						classname = "soldout"
+						remain = "完売"
+					end
+				end
+				@reminder << { product: product, remain: remain, classname: classname }
+			end
 		end
 		respond_to do |format|
 			format.html # show.html.erb

@@ -416,6 +416,44 @@ table.order_line_items {
 }
 
 //----------------------------------------------------------------------------
+div#reminder {
+	position: relative;
+	top: -13cm;
+	table.reminder {
+		border: 3px solid chocolate;
+		background: wheat;
+		padding: 0.5em 1.0em 0.5em 1.0em;
+		tr th {
+			border-top: 2px solid black;
+			border-bottom: 2px solid black;
+			font-size: large;
+			padding: 0.2em 0.5em 0.2em 0.5em;
+		}
+		tr td {
+			border-bottom: 1px solid black;
+			font-size: x-large;
+			padding: 0.2em 0.5em 0.2em 0.5em;
+			text-align: center;
+			white-space: nowrap;
+		}
+		tr td.just_soldout {
+			color: tomato;
+		}
+		tr td.soldout {
+		}
+		tr td.remain {
+			color: tomato;
+		}
+		tr td.title {
+			text-align: left;
+		}
+		tr td.button {
+			border-bottom: 0px;
+		}
+	}
+}
+
+//----------------------------------------------------------------------------
 table.summary {
 	@include table-default;
 	tr {

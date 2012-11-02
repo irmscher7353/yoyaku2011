@@ -124,6 +124,11 @@ function close_seimei(keep_focus) {
 }
 /*----------------------------------------------------------------------------
  */
+function close_reminder() {
+	document.getElementById("reminder").style.display = "none";
+}
+/*----------------------------------------------------------------------------
+ */
 function due_date_modified() {
 	update_weekday();
 	update_button_state();
