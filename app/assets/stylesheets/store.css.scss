@@ -236,6 +236,29 @@ table.barby_code {
 	}
 }
 
+div.seimei {
+	position: relative;
+}
+
+form#form_seimei {
+	display: none;
+}
+
+input.seimei {
+	opacity: 1.0;
+}
+
+td.seimei {
+	white-space: nowrap;
+}
+
+table#seimei {
+	background: wheat;
+	opacity: 1.0;
+	position: absolute;
+	top: 0.8em;
+}
+
 //----------------------------------------------------------------------------
 table caption {
 	font-size: x-large;
@@ -388,7 +411,7 @@ table.order_line_items {
 	}
 	th {
 		background: inherit;
-		wite-space: nowrap;
+		white-space: nowrap;
 	}
 }
 

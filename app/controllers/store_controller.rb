@@ -261,6 +261,7 @@ class StoreController < ApplicationController
 			session[:cart] = nil
 			session[:order] = nil
 			logger.error('@order.save success')
+			Name.from_string(@order.name).save
 			#redirect_to :action => 'index'
 			redirect_to :action => :show, :id => @order.id
 		else
@@ -270,6 +271,44 @@ class StoreController < ApplicationController
 			else
 				redirect_to :action => :edit, :id => order_id
 			end
+		end
+	end
+
+	def seimei
+
+		@seimei = []
+
+		if params[:name] and params[:name] != ""
+			str = params[:name]
+			if str =~ /　/
+				sei, mei = str.split("　")
+				if mei == nil or mei == ""
+					for name in Name.where(
+						['sei = ?', sei ]).group('mei').order('mei')
+						if name.mei != ""
+							@seimei << name.mei
+						end
+					end
+				else
+					for name in Name.where(
+						['mei like ?', "#{mei}%" ]).group('mei').order('mei')
+						if name.mei != ""
+							@seimei << name.mei
+						end
+					end
+				end
+			else
+				for name in Name.where(
+					['sei like ?', "#{str}%" ]).group('sei').order('sei')
+					if name.sei != ""
+						@seimei << name.sei
+					end
+				end
+			end
+		end
+
+		respond_to do |format|
+			format.js
 		end
 	end
 
@@ -385,35 +424,6 @@ private
 		end
 
 		result
-	end
-
-	def seimei
-
-		@seimei = []
-
-		if params[:name]
-			str = params[:name]
-			if str =~ /　/
-				sei, mei = str.split("　")
-				if mei == ""
-					for name in Name.where(['sei = ?', sei ]).group('mei')
-						@seimei << name.mei
-					end
-				else
-					for name in Name.where(['mei like ?', "#{mei}%" ]).group('mei')
-						@seimei << name.mei
-					end
-				end
-			else
-				for name in Name.where(['sei like ?', "#{str}%" ]).group('sei')
-					@seimei << name.sei
-				end
-			end
-		end
-
-		respond_to do |format|
-			format.js
-		end
 	end
 
 end

@@ -1,3 +1,8 @@
+<%= form_tag '/store/seimei', id: 'form_seimei', method: :get, remote: true do %>
+	<%= hidden_field_tag 'name', '' %>
+	<%= button_tag "▽", id: 'find_seimei' %>
+<% end %>
+
 <%= form_for :order, :url => { :action => :save_order } do |f| %>
 <table class="order" >
 	<caption style="height: 0em;" >ご予約伝票</caption>
@@ -13,7 +18,7 @@
 		<td ><%= f.text_field :name, :class => "text_field",
 			:size => 20, :autocomplete => "off", :disabled => @order_disabled,
 			:onFocus => "show_selector('kanapad');",
-			:onChange => "update_button_state();" -%> 様</td>
+			:onChange => "name_modified(this);" -%> 様</td>
 		<td align="right" ><%= f.label :phone, "ＴＥＬ" -%></td>
 		<td align="right" ><%= f.text_field :phone, :class => "phone_field",
 			:size => 20, :autocomplete => "off", :disabled => @order_disabled,
@@ -72,6 +77,12 @@
 		</td>
 	</tr>
 </table>
+
+<div class="seimei" >
+<table id="seimei" class="seimei" >
+<%= render 'seimei' %>
+</table>
+</div>
 
 <table class="order_line_items" >
 	<tr >

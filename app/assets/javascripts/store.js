@@ -23,7 +23,11 @@ function add_char(where, obj) {
 		f.value += c;
 		break;
 	}
-	update_button_state();
+	if (where == 'name') {
+		name_modified();
+	} else {
+		update_button_state();
+	}
 	if (f) {
 		f.focus();
 	}
@@ -111,6 +115,15 @@ function clear_lines() {
 }
 /*----------------------------------------------------------------------------
  */
+function close_seimei(keep_focus) {
+	var t = document.getElementById("seimei");
+	t.innerHTML = "";
+	t.style.display = "none";
+	var f = document.getElementById(keep_focus ? "order_name" : "order_phone");
+	f.focus();
+}
+/*----------------------------------------------------------------------------
+ */
 function due_date_modified() {
 	update_weekday();
 	update_button_state();
@@ -166,6 +179,21 @@ function incr_quantity(number) {
  */
 function move_titlepage(number) {
 	set_titlepage(current_titlepage + number);
+}
+/*----------------------------------------------------------------------------
+ */
+function name_modified(obj) {
+	var f = document.getElementById('order_name');
+	document.getElementById('name').value = f.value;
+	if (obj) {
+		// called from order_name.onChange
+	} else {
+		// called from add_char() method
+		document.getElementById('find_seimei').click();
+	}
+	var t = document.getElementById('seimei');
+	t.style.display = "";
+	update_button_state();
 }
 /*----------------------------------------------------------------------------
  */
@@ -285,6 +313,23 @@ function set_quantity(quantity) {
 function set_remain_text(index, remain) {
 	var remain_text = remain < 0 ? "" : remain == 0 ? "完売" : remain;
 	document.getElementById("remain_text_"+index).innerHTML = remain_text;
+}
+/*----------------------------------------------------------------------------
+ */
+function set_seimei(str) {
+	if (str == "×") {
+		close_seimei(true);
+	} else {
+		var f = document.getElementById('order_name');
+		var s = f.value;
+		if (s.match(/　/)) {
+			f.value = s.split(/　/)[0] + '　' + str;
+			close_seimei(false);
+		} else {
+			f.value = str + '　';
+			name_modified();
+		}
+	}
 }
 /*----------------------------------------------------------------------------
  */

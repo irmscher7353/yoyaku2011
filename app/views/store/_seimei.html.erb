@@ -1,13 +1,27 @@
-<table class="seimei" >
-<% n_rows = 4 %>
-<% n_cols = 4 %>
-	<tr ><td >length = <%= @seimei ? @seimei.length : "N/A" -%></td></tr>
-	<tr ><td >length = <%= seimei ? seimei.length : "N/A" -%></td></tr>
-<% for i_row in 1 .. n_rows %>
+<% if 0 < @seimei.length %>
+<% n_rows = 6 %>
+<% n_cols = (@seimei.length-1)/n_rows + 1 %>
+<% for i_row in 0 .. n_rows-1 %>
 	<tr class="seimei" >
-	<% for i_col in 1 .. n_cols %>
-		<td class="seimei" ><%= i_row -%>,<%= i_col -%></td>
+	<% for i_col in -1 .. n_cols-1 %>
+		<% if 0 <= i_col %>
+		<% str = @seimei[i_col*n_rows+i_row] %>
+		<td class="seimei" ><% if str %>
+			<%= button_tag str, class: 'seimei', type: 'button',
+				onClick: "set_seimei('#{str}');" -%>
+		<% end %></td>
+		<% else %>
+		<% if i_row == 0 %>
+		<td class="seimei" >
+			<%= button_tag "×", class: 'seimei', type: 'button',
+				onClick: "set_seimei('×');" -%>
+		</td>
+		<% else %>
+		<td class="seimei" >
+		</td>
+		<% end %>
+		<% end %>
 	<% end %>
 	</tr>
 <% end %>
-</table>
+<% end %>
