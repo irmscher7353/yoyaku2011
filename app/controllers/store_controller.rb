@@ -405,7 +405,8 @@ private
 	end
 
 	def find_order
-		session[:order] ||= Order.new
+		this_eve = Time.mktime(Time.now.year, 12, 24 )
+		session[:order] ||= Order.new(due: this_eve, due_year: this_eve.year )
 	end
 
 	def keep_products(quantity_delta)
