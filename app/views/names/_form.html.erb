@@ -15,6 +15,15 @@
     <%= f.label :sei %><br />
     <%= f.text_field :sei %>
   </div>
+  <% if @name.sei != '' and @name.mei == '' %>
+  <div >
+  <% i = 0 %>
+  <% @name.sei.each_char {|c| %>
+  	<%= c -%>
+	<%= radio_button_tag 'index', i+=1 -%>
+  <% } %>
+  </div>
+  <% end %>
   <div class="field">
     <%= f.label :mei %><br />
     <%= f.text_field :mei %>

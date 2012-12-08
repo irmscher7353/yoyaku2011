@@ -4,7 +4,11 @@ class NamesController < ApplicationController
   # GET /names
   # GET /names.json
   def index
-    @names = Name.all
+		if params[:all]
+    	@names = Name.all
+		else
+			@names = Name.where(["mei = ''"]).order('id DESC')
+		end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -59,6 +63,15 @@ class NamesController < ApplicationController
   # PUT /names/1.json
   def update
     @name = Name.find(params[:id])
+
+		if params[:index]
+			n = @name.sei.length
+			i = params[:index].to_i
+			if i < n
+				params[:name][:mei] = params[:name][:sei][i .. n]
+				params[:name][:sei] = params[:name][:sei][0 .. i-1]
+			end
+		end
 
     respond_to do |format|
       if @name.update_attributes(params[:name])
