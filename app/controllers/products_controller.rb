@@ -27,7 +27,6 @@ class ProductsController < ApplicationController
   # GET /products/new.json
   def new
     @product = Product.new
-		@product.remain = -1
 		@options_tag = get_options_tag(@product)
 
     respond_to do |format|
