@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :release, 'リリース' %><br />
-    <%= f.text_field :release %>
+    <%= f.collection_select :release_id, Release.ordered, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :priority, '順序 (00～99)' %><br />

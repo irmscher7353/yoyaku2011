@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131115122219) do
+ActiveRecord::Schema.define(:version => 20131115130846) do
 
   create_table "line_items", :force => true do |t|
     t.integer  "order_id"
@@ -68,8 +68,8 @@ ActiveRecord::Schema.define(:version => 20131115122219) do
     t.datetime "updated_at"
     t.integer  "title_id"
     t.boolean  "on_sale",    :default => true
-    t.string   "release",    :default => ""
     t.integer  "limitation", :default => -1
+    t.integer  "release_id", :default => 0,    :null => false
   end
 
   create_table "releases", :force => true do |t|
@@ -95,8 +95,8 @@ ActiveRecord::Schema.define(:version => 20131115122219) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "on_sale",     :default => true
-    t.string   "release",     :default => ""
     t.integer  "priority",    :default => 55
+    t.integer  "release_id",  :default => 0,    :null => false
   end
 
 end

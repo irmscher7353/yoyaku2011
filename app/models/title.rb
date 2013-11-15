@@ -1,4 +1,5 @@
 class Title < ActiveRecord::Base
+	belongs_to :release
 	has_many :products
 
 	def self.find_titles_for_sale
