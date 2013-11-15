@@ -17,8 +17,7 @@
 		<div >
 			<%= link_to "新規予約", '/store/new' %>
 		</div>
-		<div >
-			<br/>
+		<div class="spacer" >
 		</div>
 		<div >
 			<label class="order_id_to_edit" 
@@ -31,14 +30,15 @@
 			<%= link_to "表示印刷", '', :remote => true, :onClick => 'link_to_show();' -%><br/>
 			<%= link_to "予約変更", '', :remote => true, :onClick => 'link_to_edit();' -%><br/>
 		</div>
-		<div >
-			<br/>
+		<div class="spacer" >
 		</div>
 		<div >
 			<%= link_to "予約集計", '/store/summary' %>
 		</div>
+		<div class="spacer" >
+		</div>
 		<div >
-			<br/>
+			<%= link_to "改訂管理", releases_path %>
 		</div>
 		<div >
 			<%= link_to "品名管理", '/titles' %>

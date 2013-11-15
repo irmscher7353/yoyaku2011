@@ -1,23 +1,27 @@
-<h1>Listing releases</h1>
+<h1>改訂一覧<!-- Listing releases --></h1>
 
 <table>
+	<thead >
   <tr>
-    <th>Name</th>
+    <th>名前<!-- Name --></th>
     <th></th>
     <th></th>
     <th></th>
   </tr>
-
+	</thead>
+	<tbody >
 <% @releases.each do |release| %>
-  <tr>
-    <td><%= release.name %></td>
-    <td><%= link_to 'Show', release %></td>
-    <td><%= link_to 'Edit', edit_release_path(release) %></td>
-    <td><%= link_to 'Destroy', release, confirm: 'Are you sure?', method: :delete %></td>
+  <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
+    <td class="name" ><%= release.name %></td>
+    <td class="link" ><%= link_to '表示', release %></td>
+    <td class="link" ><%= link_to '編集', edit_release_path(release) %></td>
+    <td class="link" ><%= link_to '削除', release,
+			confirm: '本当に削除してよろしいですか？', method: :delete %></td>
   </tr>
 <% end %>
+	</tbody>
 </table>
 
 <br />
 
-<%= link_to 'New Release', new_release_path %>
+<%= link_to '新規追加', new_release_path %>

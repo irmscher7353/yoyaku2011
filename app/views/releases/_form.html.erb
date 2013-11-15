@@ -12,10 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, '名前' %><br />
     <%= f.text_field :name %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
+	<table >
+		<thead >
+			<tr ><th >名前</th></tr>
+		</thead>
+		<tbody >
+<% Release.order("created_at DESC").each do |r| %>
+			<tr ><td class="name" ><%= r.name -%></td></tr>
+<% end %>
+		</tbody>
+	</table>
 <% end %>

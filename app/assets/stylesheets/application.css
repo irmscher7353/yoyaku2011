@@ -11,6 +11,10 @@ div.caution {
 	color: tomato;
 }
 
+div.spacer {
+	min-height: 0.5em;
+}
+
 div#columns {
 	background: darkgreen;
 }
