@@ -1,5 +1,7 @@
 Tapp01::Application.routes.draw do
 
+  resources :releases
+
   match "names/absorb", :controller => :names, :action => :absorb
   match "names/delete_all", :controller => :names, :action => :delete_all
   match "names/export", :controller => :names, :action => :export, :via => :get
