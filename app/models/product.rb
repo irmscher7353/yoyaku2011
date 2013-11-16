@@ -1,5 +1,4 @@
 class Product < ActiveRecord::Base
-	belongs_to :release
 	belongs_to :title
 	has_many :line_items
 

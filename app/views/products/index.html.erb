@@ -27,7 +27,7 @@
 	<td class="id" ><%= product.id -%></td>
     <td class="title" ><%= product.title.title %></td>
     <td class="size" ><%= product.size %></td>
-    <td class="release" ><%= product.release.name %></td>
+    <td class="release" ><%= product.release %></td>
     <td class="on_sale" ><%= product.title.on_sale ? '○' : '－' -%>*<%= product.on_sale ? '○' : '－' -%>=<%= product.title.on_sale && product.on_sale ? '○' : '－' -%></td>
     <td class="price" ><%= product.price %></td>
     <td class="limitation" ><%= product.limitation %></td>

@@ -32,7 +32,7 @@
   </div>
   <div class="field">
     <%= f.label :release, 'リリース' %><br />
-    <%= f.collection_select :release_id, Release.ordered, :id, :name %><br />
+    <%= f.text_field :release %><br />
 	品名・サイズが同じで価格が異なる商品を区別するための「発売時期」を指定します．
   </div>
   <div class="field">

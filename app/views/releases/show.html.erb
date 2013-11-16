@@ -5,6 +5,11 @@
   <%= @release.name %>
 </p>
 
+<p>
+  <b>OnSale:</b>
+  <%= @release.on_sale %>
+</p>
+
 
 <%= link_to '編集', edit_release_path(@release) %> |
 <%= link_to '一覧に戻る', releases_path %>
