@@ -1,5 +1,7 @@
 Tapp01::Application.routes.draw do
 
+  resources :menuitems
+
   resources :releases
 
   match "names/absorb", :controller => :names, :action => :absorb
