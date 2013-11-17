@@ -12,12 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :release_id %><br />
-    <%= f.number_field :release_id %>
+    <%= f.label :release_id, 'リリース' %><br />
+    <%= f.collection_select :release_id, Release.ordered, :id, :name %>
   </div>
   <div class="field">
-    <%= f.label :product_id %><br />
-    <%= f.number_field :product_id %>
+    <%= f.label :product_id, '商品' %><br />
+    <%= f.collection_select :product_id,
+			Product.find_products_for_sale, :id, :label %>
   </div>
   <div class="actions">
     <%= f.submit %>

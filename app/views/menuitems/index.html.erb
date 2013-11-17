@@ -1,9 +1,12 @@
-<h1>Listing menuitems</h1>
+<h1>項目一覧<!-- Listing menuitems --></h1>
+
+<%= link_to '項目追加', new_menuitem_path %>
 
 <table>
   <tr>
-    <th>Release</th>
-    <th>Product</th>
+    <th>リリース<!-- Release --></th>
+    <th>品名<!-- Product.Title.name --></th>
+    <th>サイズ<!-- Product.size --></th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,15 +14,16 @@
 
 <% @menuitems.each do |menuitem| %>
   <tr>
-    <td><%= menuitem.release_id %></td>
-    <td><%= menuitem.product_id %></td>
-    <td><%= link_to 'Show', menuitem %></td>
-    <td><%= link_to 'Edit', edit_menuitem_path(menuitem) %></td>
-    <td><%= link_to 'Destroy', menuitem, confirm: 'Are you sure?', method: :delete %></td>
+    <td class="release" ><%= menuitem.release.name %></td>
+    <td class="title" ><%= menuitem.product.title.title %></td>
+    <td class="size" ><%= menuitem.product.size %></td>
+    <td class="link" ><%= link_to '表示', menuitem %></td>
+    <td class="link" ><%= link_to '編集', edit_menuitem_path(menuitem) %></td>
+    <td class="link" ><%= link_to '削除', menuitem, confirm: '本当に削除してよろしいですか？', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Menuitem', new_menuitem_path %>
+<%= link_to '項目追加', new_menuitem_path %>

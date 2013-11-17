@@ -38,22 +38,25 @@
 		<div class="spacer" >
 		</div>
 		<div >
+			<%= link_to "品名管理", titles_path %>
+		</div>
+		<div >
+			<%= link_to "商品管理", products_path %>
+		</div>
+		<div >
 			<%= link_to "改訂管理", releases_path %>
 		</div>
 		<div >
-			<%= link_to "品名管理", '/titles' %>
+			<%= link_to "項目管理", menuitems_path %>
 		</div>
 		<div >
-			<%= link_to "商品管理", '/products' %>
+			<%= link_to "設定管理", preferences_path %>
 		</div>
 		<div >
-			<%= link_to "設定管理", '/preferences' %>
+			<%= link_to "予約管理", orders_path %>
 		</div>
 		<div >
-			<%= link_to "予約管理", :controller => :orders %>
-		</div>
-		<div >
-			<%= link_to "詳細管理", :controller => :line_items %>
+			<%= link_to "詳細管理", line_items_path %>
 		</div>
 		<div >
 		<% if Rails.env.production? %>
