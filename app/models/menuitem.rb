@@ -2,6 +2,10 @@ class Menuitem < ActiveRecord::Base
 	belongs_to :release
 	belongs_to :product
 
+	def self.find_by_release(release_id)
+		where(['release_id = ?', release_id ])
+	end
+
 	def self.generate
     h = Hash.new {|h,k| h[k] = Hash.new(0)}
     for li in LineItem.all

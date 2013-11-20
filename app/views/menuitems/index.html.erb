@@ -1,8 +1,12 @@
 <h1>項目一覧<!-- Listing menuitems --></h1>
 
-<%= link_to '項目追加', new_menuitem_path %>
+<div >
+リリース：
+<%= collection_select :release, :id, Release.ordered, :id, :name, prompt: 'すべて' %>
+</div>
 
 <table>
+	<thead >
   <tr>
     <th>リリース<!-- Release --></th>
     <th>品名<!-- Product.Title.name --></th>
@@ -12,18 +16,10 @@
     <th></th>
     <th></th>
   </tr>
-
-<% @menuitems.each do |menuitem| %>
-  <tr>
-    <td class="release" ><%= menuitem.release.name %></td>
-    <td class="title" ><%= menuitem.product.title.title %></td>
-    <td class="size" ><%= menuitem.product.size %></td>
-    <td class="price" ><%= menuitem.product.price %></td>
-    <td class="link" ><%= link_to '表示', menuitem %></td>
-    <td class="link" ><%= link_to '編集', edit_menuitem_path(menuitem) %></td>
-    <td class="link" ><%= link_to '削除', menuitem, confirm: '本当に削除してよろしいですか？', method: :delete %></td>
-  </tr>
-<% end %>
+	</thead>
+	<tbody id="index_tbody" >
+<%= render 'index_tbody' %>
+	</tbody>
 </table>
 
 <br />

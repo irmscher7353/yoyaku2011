@@ -2,13 +2,27 @@ class MenuitemsController < ApplicationController
   # GET /menuitems
   # GET /menuitems.json
   def index
-    @menuitems = Menuitem.all
+		if params[:release_id] and params[:release_id] != ""
+			@menuitems = Menuiem.find_by_release(params[:release_id])
+		else
+    	@menuitems = Menuitem.all
+		end
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @menuitems }
     end
   end
+
+	def index_tbody
+		if params[:release_id] and params[:release_id] != ""
+			@menuitems = Menuitem.find_by_release(params[:release_id])
+		else
+    	@menuitems = Menuitem.all
+		end
+
+		render partial: 'index_tbody'
+	end
 
   # GET /menuitems/1
   # GET /menuitems/1.json

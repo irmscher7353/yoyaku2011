@@ -1,5 +1,6 @@
 Tapp01::Application.routes.draw do
 
+	get "menuitems/index_tbody"
   resources :menuitems
 
   resources :releases
