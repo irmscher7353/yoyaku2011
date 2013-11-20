@@ -7,6 +7,7 @@
     <th>リリース<!-- Release --></th>
     <th>品名<!-- Product.Title.name --></th>
     <th>サイズ<!-- Product.size --></th>
+    <th>価格<!-- Product.price --></th>
     <th></th>
     <th></th>
     <th></th>
@@ -17,6 +18,7 @@
     <td class="release" ><%= menuitem.release.name %></td>
     <td class="title" ><%= menuitem.product.title.title %></td>
     <td class="size" ><%= menuitem.product.size %></td>
+    <td class="price" ><%= menuitem.product.price %></td>
     <td class="link" ><%= link_to '表示', menuitem %></td>
     <td class="link" ><%= link_to '編集', edit_menuitem_path(menuitem) %></td>
     <td class="link" ><%= link_to '削除', menuitem, confirm: '本当に削除してよろしいですか？', method: :delete %></td>
