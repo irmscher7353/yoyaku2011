@@ -1,11 +1,11 @@
 <h1>項目一覧<!-- Listing menuitems --></h1>
 
-<div >
+<div id="release" >
 リリース：
 <%= collection_select :release, :id, Release.ordered, :id, :name, prompt: 'すべて' %>
 </div>
 
-<table>
+<table id="menuitems" >
 	<thead >
   <tr>
     <th>リリース<!-- Release --></th>

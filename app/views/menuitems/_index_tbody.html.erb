@@ -1,5 +1,5 @@
 <% @menuitems.each do |menuitem| %>
-  <tr>
+  <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
     <td class="release" ><%= menuitem.release.name %></td>
     <td class="title" ><%= menuitem.product.title.title %></td>
     <td class="size" ><%= menuitem.product.size %></td>
