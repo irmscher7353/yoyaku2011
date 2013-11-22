@@ -3,7 +3,7 @@ class Menuitem < ActiveRecord::Base
 	belongs_to :product
 
 	def self.find_by_release(release_id)
-		where(['release_id = ?', release_id ])
+		where(['release_id = ?', release_id ]).sort {|a,b| Product.compare(Product.find(a.product_id),Product.find(b.product_id))}
 	end
 
 	def self.generate

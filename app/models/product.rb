@@ -5,9 +5,15 @@ class Product < ActiveRecord::Base
 	has_many :menuitems
 	before_destroy :ensure_not_referenced
 
+	def self.compare(a,b)
+		a.title_id == b.title_id ? a.price <=> b.price :
+		a.title.priority == b.title.priority ? a.title_id <=> b.title_id :
+		a.title.priority <=> b.title.priority
+	end
+
 	def self.find_products_for_sale
 		products = []
-		for product in where(["on_sale = ?", true]).order("title_id, price")
+		for product in where(["on_sale = ?", true]).sort {|a,b| compare(a,b)}
 			products << product if product.title.on_sale
 		end
 		products
