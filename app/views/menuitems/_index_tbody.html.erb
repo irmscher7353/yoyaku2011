@@ -1,4 +1,4 @@
-<% @menuitems.each do |menuitem| %>
+<% for menuitem in @menuitems %>
   <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
     <td class="release" ><%= menuitem.release.name %></td>
     <td class="title" ><%= menuitem.product.title.title %></td>

@@ -177,9 +177,22 @@ span.soldout {
 	text-align: center;
 }
 
-div.mkey_selector {
-//	position: relative;
-	height: 0px;
+div#summary_table_by_date {
+	position: relative;
+}
+
+div#mkey_selector {
+	position: absolute;
+	right: 1.0em;
+}
+
+div#release_selector {
+	position: absolute;
+	z-index: 2;
+}
+
+div#summary_table_by_date {
+	z-index: 1;
 }
 
 div.order {

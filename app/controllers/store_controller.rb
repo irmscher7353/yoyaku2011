@@ -366,6 +366,11 @@ class StoreController < ApplicationController
 
 	def summary
 
+		params[:release_id] ||= Release.current
+		product_ids = []
+		Menuitem.find_by_release(params[:release_id]).each do |i|
+			product_ids << i.product_id
+		end
 		if params[:mkey] && params[:dkey]
 			@line_items = []
 			@summary = Hash.new {|h,k| h[k]=Hash.new (0)}
@@ -380,25 +385,19 @@ class StoreController < ApplicationController
 					@line_items.push(li)
 				end
 			end
-		else
-			@summary = Hash.new {|h,k| h[k]=Hash.new {|hh,kk| hh[kk]=Hash.new {|hhh,kkk| hhh[kkk]=Hash.new(0)}}}
-			for order in Order.where(["state != ?", STATE_CANCELED ] )
-				for li in order.current_line_items
-					next unless (li.product.on_sale && li.product.title.on_sale)
-					mkey = sprintf('%04d/%02d', order.due_year, order.due_month )
-					dkey = sprintf('%02d/%02d', order.due_month, order.due_day )
-					@summary[mkey][dkey][li.product_id][:total] += li.quantity
-					@summary[mkey][dkey][li.product_id][order.state == STATE_DELIVERED ? :delivered : :remained] += li.quantity
-				end
-			end
-			@options_tag = ''
-			for mkey in @summary.keys.sort.reverse
-				@options_tag += sprintf("<option >%s</option>", mkey)
-			end
 		end
 
 		respond_to do |format|
 			format.html # summary.html.erb
+		end
+	end
+
+	def summary_table_by_date
+		@products = Product.find_by_release(params[:release][:id])
+		@summary_by_date = Order.summary_by_date(params[:release][:id])
+
+		respond_to do |format|
+			format.js   # summary_table_by_date.js.erb
 		end
 	end
 

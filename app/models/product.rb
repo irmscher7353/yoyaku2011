@@ -11,6 +11,14 @@ class Product < ActiveRecord::Base
 		a.title.priority <=> b.title.priority
 	end
 
+	def self.find_by_release(release_id)
+		product_ids = []
+		for mi in Menuitem.find_by_release(release_id)
+			product_ids << mi.product_id
+		end
+		where(["id in (?)", product_ids.uniq]).sort {|a,b| compare(a,b)}
+	end
+
 	def self.find_products_for_sale
 		products = []
 		for product in where(["on_sale = ?", true]).sort {|a,b| compare(a,b)}

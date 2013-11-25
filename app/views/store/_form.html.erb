@@ -12,6 +12,8 @@
 			<%= number_field_tag :order_id_field, @order.id, :disabled => true, -%>
 			<%= f.hidden_field :id -%>
 		</td>
+		<td ></td>
+		<td align="right" ><%= f.collection_select :release_id, Release.ordered, :id, :name, {}, {hidden: 'hidden'} -%></td>
 	</tr>
 	<tr >
 		<td ><%= f.label :name, "お名前" -%></td>

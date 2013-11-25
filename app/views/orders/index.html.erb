@@ -3,6 +3,7 @@
 <table class="orders" >
   <tr>
     <th>Id</th>
+		<th>リリース</th>
     <th>お名前<!-- Name --></th>
     <th>ＴＥＬ<!-- Phone --></th>
     <!-- th>ご住所<!-- Address -!></th -->
@@ -23,6 +24,7 @@
 <% @orders.each do |order| %>
   <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
     <td class="id" ><%= order.id %></td>
+    <td class="release" ><%= order.release.name %></td>
     <td class="name" ><%= order.name %></td>
     <td class="phone" ><%= order.phone %></td>
     <!-- td class="address" ><%= order.address %></td -->

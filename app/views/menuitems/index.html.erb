@@ -2,7 +2,13 @@
 
 <div id="release" >
 リリース：
-<%= collection_select :release, :id, Release.ordered, :id, :name, prompt: 'すべて' %>
+<%= collection_select :release, :id, Release.ordered, :id, :name, {
+	prompt: 'すべて',
+}, {
+	data: {
+		remote: true, url: url_for(controller: :menuitems, action: :index_tbody)
+	}
+} %>
 </div>
 
 <table id="menuitems" >

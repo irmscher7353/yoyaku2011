@@ -2,6 +2,7 @@
 class Release < ActiveRecord::Base
 	validates :name, presence: true, uniqueness: true
 	has_many :menuitems, dependent: :destroy
+	has_many :orders, dependent: :destroy
 
 	def self.current()
 		ordered.first()

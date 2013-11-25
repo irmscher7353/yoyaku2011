@@ -1,55 +1,8 @@
-<!- vim:ts=4:sw=4
-->
-<% mkey = @summary.keys.sort.reverse[0] %>
-<div class="mkey_selector" >
-	<%= select_tag :mkey, @options_tag.html_safe %>
+<div id="release_selector" >
+リリース：
+<%= collection_select :release, :id, Release.ordered, :id, :name, {}, {
+	data: {remote: true, url: url_for(controller: :store, action: :summary_table_by_date)}
+} %>
 </div>
-<table class="summary" >
-	<caption >日付別集計</caption>
-	<tr class="summary_header" >
-		<th rowspan="2" >種類</th>
-		<th rowspan="2" >サイズ</th>
-	<% for dkey in @summary[mkey].keys.sort %>
-		<th colspan="5" ><%= link_to dkey, :action => :summary, :mkey => mkey, :dkey => dkey -%></th>
-	<% end %>
-		<th rowspan="2" >合計</th>
-		<th rowspan="2" >残り</th>
-		<th rowspan="2" >限定</th>
-	</tr>
-	<tr style="background: linen;" >
-	<% for dkey in @summary[mkey].keys.sort %>
-		<th name="<%= dkey -%>" class="subcount" colspan="5" >
-			<a onClick="Summary.expandColumns('<%= dkey -%>');" >予約</a>
-		</th>
-		<th name="<%= dkey -%>" class="reserved" style="display: none;" >
-			<a onClick="Summary.shrinkColumns('<%= dkey -%>');" >予約</a>
-		</th>
-		<th name="<%= dkey -%>" class="symbol" style="display: none;" >-</th>
-		<th name="<%= dkey -%>" class="delivered" style="display: none;" >引渡</th>
-		<th name="<%= dkey -%>" class="symbol" style="display: none;" >=</th>
-		<th name="<%= dkey -%>" class="remained" style="display: none;" >残り</th>
-	<% end %>
-	</tr>
-<% for product in Product.find_products_for_sale %>
-	<tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
-		<td class="title" ><%= product.title.title -%></td>
-		<td class="size" ><%= product.size -%></td>
-	<% total = 0 %>
-	<% for dkey in @summary[mkey].keys.sort %>
-		<% count = @summary[mkey][dkey][product.id][:total] %>
-		<% delivered = @summary[mkey][dkey][product.id][:delivered] %>
-		<% remained = @summary[mkey][dkey][product.id][:remained] %>
-		<td name="<%= dkey -%>" class="subcount" colspan="5" ><%= 0 < count ? count : '' -%></td>
-		<td name="<%= dkey -%>" class="reserved" style="display: none;" ><%= 0 < count ? count : '' -%></td>
-		<td name="<%= dkey -%>" class="symbol" style="display: none;" ><%= 0 < count ? '-' : '' -%></td>
-		<td name="<%= dkey -%>" class="delivered" style="display: none;" ><%= 0 < count ? delivered : '' -%></td>
-		<td name="<%= dkey -%>" class="symbol" style="display: none;" ><%= 0 < count ? '=' : '' -%></td>
-		<td name="<%= dkey -%>" class="remained" style="display: none;" ><%= 0 < count ? remained : '' -%></td>
-		<% total += count %>
-	<% end %>
-		<td class="count" ><%= total -%></td>
-		<td class="count" ><%= product.remain -%></td>
-		<td class="count" ><%= product.limitation -%></td>
-	</tr>
-<% end %>
-</table>
+<div id="summary_table_by_date" >
+</div>

@@ -15,13 +15,15 @@ class MenuitemsController < ApplicationController
   end
 
 	def index_tbody
-		if params[:release_id] and params[:release_id] != ""
-			@menuitems = Menuitem.find_by_release(params[:release_id])
+		if params[:release] and params[:release][:id] != ""
+			@menuitems = Menuitem.find_by_release(params[:release][:id])
 		else
     	@menuitems = Menuitem.all
 		end
 
-		render partial: 'index_tbody'
+		respond_to do |format|
+			format.js   # index_tbody.js.erb
+		end
 	end
 
   # GET /menuitems/1

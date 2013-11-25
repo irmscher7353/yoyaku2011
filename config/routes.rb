@@ -27,6 +27,7 @@ Tapp01::Application.routes.draw do
   get  "store/show"
   match 'store/show/:id', :controller => :store, :action => :show
   get  "store/summary"
+  get  "store/summary_table_by_date"
 
   resources :line_items
 
