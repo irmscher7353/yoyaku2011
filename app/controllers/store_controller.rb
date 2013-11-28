@@ -54,7 +54,7 @@ class StoreController < ApplicationController
 			"マミムメモ",
 			"ヤ　ユ　ヨ",
 			"ラリルレロ",
-			"ワ　ッヲン",
+			"ワ－ッヲン",
 			"　　　　　",
 			"ガギグゲゴ",
 			"ザジズゼゾ",
