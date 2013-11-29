@@ -7,6 +7,11 @@ class CreateReleases < ActiveRecord::Migration
       t.timestamps
     end
 		Product.all.each do |p|
+			release = p.release.split('/').join('-')
+			if p.release != release
+				p.release = release
+				p.save!
+			end
 			Release.first_or_create(p.release)
 		end
   end

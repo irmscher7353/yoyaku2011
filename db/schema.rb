@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20131124070744) do
     t.datetime "updated_at"
     t.integer  "title_id"
     t.boolean  "on_sale",    :default => true
-    t.integer  "limitation", :default => -1
     t.string   "release",    :default => ""
+    t.integer  "limitation", :default => -1
   end
 
   create_table "releases", :force => true do |t|
@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(:version => 20131124070744) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "on_sale",     :default => true
-    t.integer  "priority",    :default => 55
     t.string   "release",     :default => ""
+    t.integer  "priority",    :default => 55
   end
 
 end
