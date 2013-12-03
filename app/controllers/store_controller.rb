@@ -4,10 +4,6 @@ class StoreController < ApplicationController
 
 	MIN_LINES = 5
 
-	STATE_NORMAL = ''
-	STATE_CANCELED = 'キャンセル'
-	STATE_DELIVERED = '引渡し済み'
-
 	def check
 		# ordered_at 導入前のバグで，古いはずの line_items が古くなっていない
 		# order を検出する．
@@ -16,7 +12,7 @@ class StoreController < ApplicationController
 		@suspicious_orders = []
 		@multiline_orders = []
 
-		for order in Order.where(["state = ? ", STATE_NORMAL ])
+		for order in Order.all_active_orders
 			total = 0
 			count = Hash.new(0)
 			for li in order.current_line_items
@@ -107,12 +103,7 @@ class StoreController < ApplicationController
 				@message = ""
 			end
 		else
-			@recent_orders = Order.where(["state = ? AND due_year = ? AND due_month = ? AND due_day = ?", STATE_NORMAL, Time.current.year, Time.current.month, Time.current.day ]).order('due ASC').limit(16)
-			@caption = "今日の予約"
-			if @recent_orders.size <= 0
-				@recent_orders = Order.find(:all, :order => "ordered_at DESC", :limit => 8)
-				@caption = "最近更新した予約"
-			end
+			@caption, @recent_orders = Order.recent
 			@message = "予約番号を指定すると，他の検索条件は無視されます．"
 		end
 
@@ -128,7 +119,7 @@ class StoreController < ApplicationController
 
 		@titles = Title.find_titles_for_sale
 		@order = find_order
-		@order_disabled = @order.state && @order.state != STATE_NORMAL
+		@order_disabled = (not @order.normal?)
 		@cart = find_cart
 		@seimei = []
 
@@ -145,14 +136,14 @@ class StoreController < ApplicationController
 	def cancel_order
 		# order の STATE_CANCELED <=> STATE_NORMAL をトグルさせる．
 		@order = Order.find(params[:order][:id].to_i)
-		if @order.state == STATE_DELIVERED
+		if @order.delivered?
 			redirect_to :action => :edit, :id => @order.id
 			return
 		end
-		@order.state = @order.state == STATE_NORMAL ? STATE_CANCELED : STATE_NORMAL
+		@order.toggle!
 		line_items = @order.current_line_items
 		quantity_delta = Hash.new(0)
-		sign = @order.state == STATE_NORMAL ? -1 : 1
+		sign = @order.normal? ? -1 : 1
 		for li in line_items
 			quantity_delta[li.product_id] = sign * li.quantity
 		end
@@ -173,9 +164,7 @@ class StoreController < ApplicationController
 	def deliver_order
 		if 0 < (order_id = params[:order][:id].to_i)
 			@order = Order.find(order_id)
-			@order.state = STATE_DELIVERED
-			@order.amount_paid = @order.total_price
-			@order.balance = 0
+			@order.delivered!
 			if @order.save
 				session[:cart] = nil
 				session[:order] = nil
@@ -263,7 +252,7 @@ class StoreController < ApplicationController
 			@order.amount_paid = @order.total_price
 		end
 		@order.balance = @order.total_price - @order.amount_paid
-		@order.state = STATE_NORMAL
+		@order.normal!
 
 		if @order.save
 			@order.replicate_line_items(line_items)
@@ -366,20 +355,17 @@ class StoreController < ApplicationController
 
 	def summary
 
-		params[:release_id] ||= Release.current
-		product_ids = []
-		Menuitem.find_by_release(params[:release_id]).each do |i|
-			product_ids << i.product_id
-		end
+		@release_id = (params[:release_id] or Release.current)
+		@products = Product.find_by_release(@release_id)
+
 		if params[:mkey] && params[:dkey]
 			@line_items = []
 			@summary = Hash.new {|h,k| h[k]=Hash.new (0)}
-			yyyy, mm = params[:mkey].split('/')
-			mm, dd = params[:dkey].split('/')
-			@caption = yyyy + '-' + mm + '-' + dd
-			for order in Order.where(["state = ? AND due_year = ? AND due_month = ? AND due_day = ?", STATE_NORMAL, yyyy.to_i, mm.to_i, dd.to_i ]).order('due ASC')
+			yyyy, mm = params[:mkey].split('/').map! {|v| v.to_i}
+			mm, dd = params[:dkey].split('/').map! {|v| v.to_i}
+			@caption = sprintf('%04d-%02d-%02d', yyyy, mm, dd )
+			for order in Order.active_orders_of_the_day(@release_id, yyyy, mm, dd )
 				for li in order.current_line_items
-					next unless (li.product.on_sale && li.product.title.on_sale)
 					tkey = sprintf('%02d:%02d', order.due_hour, order.due_minute )
 					@summary[tkey][li.product_id] += li.quantity
 					@line_items.push(li)
@@ -393,8 +379,9 @@ class StoreController < ApplicationController
 	end
 
 	def summary_table_by_date
-		@products = Product.find_by_release(params[:release][:id])
-		@summary_by_date = Order.summary_by_date(params[:release][:id])
+		@release_id = params[:release][:id]
+		@products = Product.find_by_release(@release_id)
+		@summary_by_date = Order.summary_by_date(@release_id)
 
 		respond_to do |format|
 			format.js   # summary_table_by_date.js.erb

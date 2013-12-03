@@ -9,7 +9,7 @@
 		<th rowspan="2" >種類</th>
 		<th rowspan="2" >サイズ</th>
 	<% for dkey in @summary_by_date[mkey].keys.sort %>
-		<th colspan="5" ><%= link_to dkey, :action => :summary, :mkey => mkey, :dkey => dkey -%></th>
+		<th colspan="5" ><%= link_to dkey, :action => :summary, :release_id => @release_id, :mkey => mkey, :dkey => dkey -%></th>
 	<% end %>
 		<th rowspan="2" >合計</th>
 		<th rowspan="2" >残り</th>

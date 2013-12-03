@@ -469,6 +469,8 @@ div#reminder {
 //----------------------------------------------------------------------------
 table.summary {
 	@include table-default;
+	min-width: 50%;
+	padding-bottom: 1.0em;
 	tr {
 		td, th {
 //			position: absolute; left: 0px; top: 0px;
