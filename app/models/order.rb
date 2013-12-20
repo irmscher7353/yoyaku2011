@@ -113,6 +113,10 @@ class Order < ActiveRecord::Base
 		state == STATE_NORMAL
 	end
 
+	def today?
+		Date.new(due.year, due.month, due.day) == Date.today
+	end
+
 	def toggle!
 		delivered? or self.state = (normal? ? STATE_CANCELED : STATE_NORMAL )
 		self

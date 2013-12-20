@@ -437,8 +437,17 @@ function start_edit(order_id, state) {
 	var input = document.getElementById("register");
 	input.value = "予約修正";
 	input.disabled = "disabled";
-	document.getElementById("deliver").style.display
-	= document.getElementById("order_id").value == "" ? "none" : "block";
+	var display, disabled;
+	var input = document.getElementById("deliver");
+	if (document.getElementById("order_id").value == "") {
+		display = "none"
+		disabled = "";
+	} else {
+		display = "block"
+		disabled = state == "" ? "" : "disabled";
+	}
+	input.style.display = display;
+	input.disabled = disabled;
 	document.getElementById("cancelbutton").style.display
 	= state == "" ? "block" : "none";
 	document.getElementById("revertbutton").style.display

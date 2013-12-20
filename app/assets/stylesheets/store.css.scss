@@ -104,6 +104,14 @@
 	width: 16em;
 }
 
+.cautionbutton {
+	color: tomato;
+	font-size: large;
+	font-weight: bold;
+	padding: 4px 9px 4px 9px;
+	width: 6em;
+}
+
 .submitbutton {
 	font-size: large;
 	font-weight: bold;
@@ -170,6 +178,10 @@ span.soldout {
 	color: green;
 	display: none;
 	margin-top: 0.5em;
+}
+
+#blank_selector {
+	font-size: x-large;
 }
 
 #title_selector {
