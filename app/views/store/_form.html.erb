@@ -173,7 +173,7 @@
 		<% if @order.canceled? %>
 			この予約はキャンセルされています．<br/>
 		<% end %>
-		<% if not @order.today? %>
+		<% if not @order.id.nil? and not @order.today? %>
 			<span class="caution" >今日の引き渡しではありません．</span><br/>
 		<% end %>
 		<% if @order.delivered? %>
