@@ -17,7 +17,7 @@
 	</tr>
 	<tr style="background: linen;" >
 	<% for dkey in @summary_by_date[mkey].keys.sort %>
-		<% date = Date.strptime(Date.today.year.to_s+"/"+dkey, '%Y/%m/%d') %>
+		<% date = Date.strptime(mkey.split('/')[0]+"/"+dkey, '%Y/%m/%d') %>
 		<% past = (date < Date.today) %>
 		<% today = (date == Date.today) %>
 		<% future = (Date.today < date) %>
@@ -49,7 +49,7 @@
 	<% total = 0 %>
 	<% total_remained = 0 %>
 	<% for dkey in @summary_by_date[mkey].keys.sort %>
-		<% date = Date.strptime(Date.today.year.to_s+"/"+dkey, '%Y/%m/%d') %>
+		<% date = Date.strptime(mkey.split('/')[0]+"/"+dkey, '%Y/%m/%d') %>
 		<% past = (date < Date.today) %>
 		<% today = (date == Date.today) %>
 		<% future = (Date.today < date) %>
