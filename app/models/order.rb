@@ -50,6 +50,11 @@ class Order < ActiveRecord::Base
 				summary[mkey][dkey][li.product_id][:total] += li.quantity
 				if order.delivered?
 					summary[mkey][dkey][li.product_id][:delivered] += li.quantity
+					updated = Date.new(order.updated_at.year,
+						order.updated_at.month, order.updated_at.day )
+					if Date.today < order.date and updated == Date.today
+						summary[mkey][dkey][li.product_id][:preceded] += li.quantity
+					end
 				else
 					summary[mkey][dkey][li.product_id][:remained] += li.quantity
 				end
@@ -83,6 +88,10 @@ class Order < ActiveRecord::Base
 				p order.id.to_s + " : " + release_ids.to_s
 			end
 		end
+	end
+
+	def date
+		Date.new(due_year, due_month, due_day )
 	end
 
 	def weekday

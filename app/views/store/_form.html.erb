@@ -171,13 +171,13 @@
 	<tr id="payment" valign="top" >
 		<td id="blank_selector" colspan="3" rowspan="4" >
 		<% if @order.canceled? %>
-			この予約はキャンセルされています．
-		<% end %>
-		<% if @order.delivered? %>
-			この予約は引渡し済みです．
+			この予約はキャンセルされています．<br/>
 		<% end %>
 		<% if not @order.today? %>
-			<span class="caution" >今日の引き渡しではありません．</span>
+			<span class="caution" >今日の引き渡しではありません．</span><br/>
+		<% end %>
+		<% if @order.delivered? %>
+			この予約は引渡し済みです．<br/>
 		<% end %>
 		</td>
 		<td id="title_selector" rowspan="4" style="display: none;" >
@@ -330,7 +330,7 @@
 			<%= button_tag "お引渡し", :id => "deliver",
 				:formaction => "/store/deliver_order",
 				:disabled => @order.delivered?,
-				:class => @order.today? ? "submitbutton" : "cautionbutton" %><br/>
+				:class => (@order.today? or @order.delivered?) ? "submitbutton" : "cautionbutton" %><br/>
 			<%= button_tag "予約取消", :id => "cancelbutton",
 				:confirm => "この予約を取り消していいですか？",
 				:formaction => "/store/cancel_order",

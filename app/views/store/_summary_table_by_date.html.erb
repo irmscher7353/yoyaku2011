@@ -9,24 +9,37 @@
 		<th rowspan="2" >種類</th>
 		<th rowspan="2" >サイズ</th>
 	<% for dkey in @summary_by_date[mkey].keys.sort %>
-		<th colspan="5" ><%= link_to dkey, :action => :summary, :release_id => @release_id, :mkey => mkey, :dkey => dkey -%></th>
+		<th colspan="6" ><%= link_to dkey, :action => :summary, :release_id => @release_id, :mkey => mkey, :dkey => dkey -%></th>
 	<% end %>
-		<th rowspan="2" >合計</th>
-		<th rowspan="2" >残り</th>
+		<th rowspan="2" >予約合計</th>
+		<th rowspan="2" >限定残り</th>
 		<th rowspan="2" >限定</th>
 	</tr>
 	<tr style="background: linen;" >
 	<% for dkey in @summary_by_date[mkey].keys.sort %>
-		<th name="<%= dkey -%>" class="subcount" colspan="5" >
-			<a onClick="Summary.expandColumns('<%= dkey -%>');" >予約</a>
+		<% date = Date.strptime(Date.today.year.to_s+"/"+dkey, '%Y/%m/%d') %>
+		<% past = (date < Date.today) %>
+		<% today = (date == Date.today) %>
+		<% future = (Date.today < date) %>
+		<th name="<%= dkey -%>" class="<%= future ? 'delivered' : 'remained' -%>" colspan="5" >
+			<a onClick="Summary.expandColumns('<%= dkey -%>');" >未渡</a>
 		</th>
 		<th name="<%= dkey -%>" class="reserved" style="display: none;" >
-			<a onClick="Summary.shrinkColumns('<%= dkey -%>');" >予約</a>
-		</th>
+			<a onClick="Summary.shrinkColumns('<%= dkey -%>');" >予約</a></th>
 		<th name="<%= dkey -%>" class="symbol" style="display: none;" >-</th>
-		<th name="<%= dkey -%>" class="delivered" style="display: none;" >引渡</th>
+		<th name="<%= dkey -%>" class="<%= future ? 'preceded' : 'delivered' -%>" style="display: none;" >
+			<a onClick="Summary.shrinkColumns('<%= dkey -%>');" ><%= future ? '先渡' : '渡済' -%></a>
+		</th>
 		<th name="<%= dkey -%>" class="symbol" style="display: none;" >=</th>
-		<th name="<%= dkey -%>" class="remained" style="display: none;" >残り</th>
+		<th name="<%= dkey -%>" class="<%= future ? 'delivered' : 'remained' -%>" style="display: none;" >
+			<a onClick="Summary.shrinkColumns('<%= dkey -%>');" >未渡</a>
+		</th>
+		<% if future %>
+		<th class="preceded" >先渡</th>
+		<% else %>
+		<th class="total_remained" >渡残</th>
+		<% end %>
+		</th>
 	<% end %>
 	</tr>
 <% for product in @products %>
@@ -34,16 +47,28 @@
 		<td class="title" ><%= product.title.title -%></td>
 		<td class="size" ><%= product.size -%></td>
 	<% total = 0 %>
+	<% total_remained = 0 %>
 	<% for dkey in @summary_by_date[mkey].keys.sort %>
+		<% date = Date.strptime(Date.today.year.to_s+"/"+dkey, '%Y/%m/%d') %>
+		<% past = (date < Date.today) %>
+		<% today = (date == Date.today) %>
+		<% future = (Date.today < date) %>
 		<% count = @summary_by_date[mkey][dkey][product.id][:total] %>
 		<% delivered = @summary_by_date[mkey][dkey][product.id][:delivered] %>
 		<% remained = @summary_by_date[mkey][dkey][product.id][:remained] %>
-		<td name="<%= dkey -%>" class="subcount" colspan="5" ><%= 0 < count ? count : '' -%></td>
+		<% preceded = @summary_by_date[mkey][dkey][product.id][:preceded] %>
+		<% total_remained += remained %>
+		<td name="<%= dkey -%>" class="<%= future ? 'delivered' : 'remained' =%>" colspan="5" ><%= 0 < remained ? remained : '' -%></td>
 		<td name="<%= dkey -%>" class="reserved" style="display: none;" ><%= 0 < count ? count : '' -%></td>
 		<td name="<%= dkey -%>" class="symbol" style="display: none;" ><%= 0 < count ? '-' : '' -%></td>
-		<td name="<%= dkey -%>" class="delivered" style="display: none;" ><%= 0 < count ? delivered : '' -%></td>
+		<td name="<%= dkey -%>" class="<%= future ? 'preceded' : 'delivered' -%>" style="display: none;" ><%= 0 < count ? delivered : '' -%></td>
 		<td name="<%= dkey -%>" class="symbol" style="display: none;" ><%= 0 < count ? '=' : '' -%></td>
-		<td name="<%= dkey -%>" class="remained" style="display: none;" ><%= 0 < count ? remained : '' -%></td>
+		<td name="<%= dkey -%>" class="<%= future ? 'delivered' : 'remained' -%>" style="display: none;" ><%= 0 < count ? remained : '' -%></td>
+		<% if future %>
+		<td class="preceded" ><%= 0 < preceded ? preceded : '' -%></td>
+		<% else %>
+		<td class="total_remained" ><%= 0 < total_remained ? total_remained : '' -%></td>
+		<% end %>
 		<% total += count %>
 	<% end %>
 		<td class="count" ><%= total -%></td>
@@ -52,3 +77,6 @@
 	</tr>
 <% end %>
 </table>
+<div >
+※ 日付列中，一番右側の「先渡」列には，今日，先行引き渡しされた数が表示されています．
+</div>

@@ -547,7 +547,7 @@ Summary.toggleColumns = function(dkey, flag) {
 	var tags=document.getElementsByName(dkey);
 	for (var i=0; i<tags.length; ++i) {
 		var tag=tags[i];
-		if (tag.className == "subcount") {
+		if (1 < tag.getAttribute('colspan')) {
 			tag.style.display = flag ? "" : "none";
 		} else {
 			tag.style.display = flag ? "none" : "";

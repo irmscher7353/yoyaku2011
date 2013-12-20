@@ -182,6 +182,7 @@ span.soldout {
 
 #blank_selector {
 	font-size: x-large;
+	line-height: 120%;
 }
 
 #title_selector {
@@ -503,8 +504,25 @@ table.summary {
 				color: inherit;
 			}
 		}
+		td.preceded {
+			color: red;
+			min-width: 2em;
+			padding-right: 0.5em;
+			text-align: right;
+			a {
+				color: inherit;
+			}
+		}
 		td.remained {
 			color: tomato;
+			min-width: 2em;
+			padding-right: 0.5em;
+			text-align: right;
+			a {
+				color: inherit;
+			}
+		}
+		td.total_remained {
 			min-width: 2em;
 			padding-right: 0.5em;
 			text-align: right;
@@ -522,6 +540,7 @@ table.summary {
 			}
 		}
 		td.subcount {
+			color: tomato;
 			min-width: 2em;
 			padding-right: 0.5em;
 			text-align: right;
@@ -544,10 +563,26 @@ table.summary {
 				color: inherit;
 			}
 		}
+		th.preceded {
+			color: red;
+			min-width: 2em;
+			text-align: center;
+			a {
+				color: inherit;
+			}
+		}
 		th.remained {
 			color: tomato;
 			min-width: 2em;
 			text-align: center;
+			a {
+				color: inherit;
+			}
+		}
+		th.total_remained {
+			min-width: 2em;
+			padding-right: 0.5em;
+			text-align: right;
 			a {
 				color: inherit;
 			}
@@ -561,6 +596,7 @@ table.summary {
 			}
 		}
 		th.subcount {
+			color: tomato;
 			min-width: 2em;
 			text-align: center;
 			a {
