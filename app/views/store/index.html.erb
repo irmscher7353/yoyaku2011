@@ -38,11 +38,11 @@
 			<td ><%= text_field_tag :phone, params[:phone], :class => 'text_field', :size => 20,
 				:autocomplete => "off" -%></td>
 			<td class="due" ><%= select_tag :due_month,
-				options_from_collection_for_select(Order.group(:due_month).all,
+				options_from_collection_for_select(Order.this_year.group(:due_month),
 				:due_month, :due_month, params[:due_month] ),
 				:include_blank => true, :class => 'number_field' -%>
 				/<%= select_tag :due_day,
-				options_from_collection_for_select(Order.group(:due_day).all,
+				options_from_collection_for_select(Order.this_year.group(:due_day),
 				:due_day, :due_day, params[:due_day] ), :include_blank => true,
 				:class => 'number_field' -%></td>
 			<td ><%= select_tag :means, options_from_collection_for_select(

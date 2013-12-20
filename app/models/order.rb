@@ -19,6 +19,10 @@ class Order < ActiveRecord::Base
 		where({state: STATE_NORMAL})
 	end
 
+	def self.this_year
+		where(due_year: Date.today.year)
+	end
+
 	def self.recent
 		# "今日の予約" か "最近更新した予約" を取得する．
 		t = Time.current

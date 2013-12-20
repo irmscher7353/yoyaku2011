@@ -86,9 +86,10 @@ class StoreController < ApplicationController
 		if params[:id] || params[:name] || params[:phone] || params[:due_month] || params[:due_day] || params[:means] || params[:state]
 			if params[:id] == ''
 				@orders_found = Order.where([
-					"name LIKE ? AND phone LIKE ? AND due_month LIKE ? AND due_day LIKE ? AND means LIKE ? AND state LIKE ?", 
+					"name LIKE ? AND phone LIKE ? AND due_year = ? AND due_month LIKE ? AND due_day LIKE ? AND means LIKE ? AND state LIKE ?", 
 					params[:name].gsub(/　/, '').gsub(//, '%' ),
 					'%'+params[:phone]+'%',
+					Date.today.year,
 					params[:due_month] == '' ? '%' : params[:due_month],
 					params[:due_day] == '' ? '%' : params[:due_day],
 					params[:means] == '' ? '%' : params[:means],
