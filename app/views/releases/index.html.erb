@@ -14,7 +14,7 @@
 <% @releases.each do |release| %>
   <tr class="<%= cycle('list-line-odd', 'list-line-even') -%>" >
     <td class="name" ><%= release.name %></td>
-    <td class="on_sale" ><%= release.on_sale ? '○' : 'ー' -%></td>
+    <td class="on_sale" ><%= release.on_sale_flag -%></td>
     <td class="link" ><%= link_to '表示', release %></td>
     <td class="link" ><%= link_to '編集', edit_release_path(release) %></td>
     <td class="link" ><%= link_to '削除', release,

@@ -15,4 +15,8 @@ class Release < ActiveRecord::Base
 	def self.ordered()
 		order('created_at DESC')
 	end
+
+	def on_sale_flag
+		on_sale ? "○" : "－"
+	end
 end

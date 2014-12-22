@@ -17,18 +17,21 @@
   </div>
   <div class="field">
     <%= f.label :on_sale, '発売中' %><br />
-    <%= f.check_box :name %>
+    <%= f.check_box :on_sale %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 	<table >
 		<thead >
-			<tr ><th >名前</th></tr>
+			<tr ><th >名前</th><th >発売中</th></tr>
 		</thead>
 		<tbody >
 <% Release.order("created_at DESC").each do |r| %>
-			<tr ><td class="name" ><%= r.name -%></td></tr>
+			<tr >
+				<td class="name" ><%= r.name -%></td>
+				<td class="on_sale" ><%= r.on_sale_flag -%></td>
+			</tr>
 <% end %>
 		</tbody>
 	</table>
