@@ -68,7 +68,8 @@
 			<%= f.text_field :due_minute, :class => "number_field",
 				:autocomplete => "off", :disabled => @order_disabled,
 				:onFocus => "show_selector('due_selector');",
-				:value => "00", :onChange => "due_time_modified();" -%>
+				:value => "%02d" % @order.due_minute,
+				:onChange => "due_time_modified();" -%>
 
 		</td>
 		<td class="ordered_at" >
